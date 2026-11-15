@@ -132,7 +132,7 @@ Rollback: cada script de creación borra y vuelve a crear su base, y existe el b
 Criterios de aceptación: pruebas T-01 a T-08 en estado PASA, reconciliación con diferencia S/ 0,00, dashboard con 4 visualizaciones y filtros funcionando, y E3 al menos 5 veces más rápido que E1.
 Cronograma con hitos (ruta crítica marcada con *; incluye días de contingencia en los hitos de mayor riesgo):
 [[NT:crono]]
-Resultados de las pruebas de aceptación (scripts 08 y 11; salidas en la carpeta resultados/):
+Resultados de las pruebas de aceptación (scripts 08 y 11; salidas en DATOS_FICTICIOS/4_Resultados_de_las_consultas/):
 [[NT:pruebas]]
 Prueba de viabilidad del componente más incierto: el componente con más incertidumbre era si el Data Warehouse realmente mejoraría la velocidad de los reportes frente a solo agregar índices a la base actual. Se midieron 4 consultas de la gerencia en 3 escenarios (E1 base actual, E2 base + 4 índices, E3 Data Warehouse columnar), 10 veces cada una, comprobando que los 3 devuelven el mismo resultado. Veredicto: VIABLE (E3 fue 7,7 a 11,5 veces más rápido y leyó hasta 95 % menos páginas). El análisis completo se presentará en el capítulo IV de la entrega final.
 [[IMG:evidencias\E-09b_grafico_tiempos.png|Figura 12. Prueba de viabilidad: tiempo promedio por consulta y escenario (ms, 10 corridas). Fuente: elaboración propia (evidencia E-09).|15]]
@@ -226,7 +226,7 @@ RNF-05|Reproducibilidad|Misma huella del dataset en 2 generaciones independiente
 ID|QUÉ SE PROBÓ|RESULTADO ESPERADO|RESULTADO|EVIDENCIA
 T-01|Registrar una venta válida|Se guarda y responde OK|OK – PASA|Figura 5
 T-02|Venta sin stock|ROLLBACK, no se guarda nada|Total de ventas sin cambio – PASA|Figura 5
-T-03|Stock bajo el mínimo y sede inexistente|Alerta y error controlado|1 alerta; error controlado – PASA|resultados/
+T-03|Stock bajo el mínimo y sede inexistente|Alerta y error controlado|1 alerta; error controlado – PASA|DATOS_FICTICIOS/4
 T-04 / T-05|Cambio de email y de precio|Quedan auditados con antes/después|Registrados en AuditoriaLog – PASA|Figura 6
 T-06 / T-07|Analista lee email; operativo borra ventas|Ambos bloqueados|Permiso denegado – PASA|Figura 10
 T-08|Total OLTP vs total DW|Diferencia S/ 0,00|S/ 180 113 494,64 en ambos – PASA|Figura 4
@@ -339,16 +339,16 @@ Python / pandas|ETL (mismos criterios)|Flexible para datos no estructurados|Pyth
 
 
 @@T 23
-E-01|Dataset original y ficha de procedencia|resultados/salida_02_generar_datos.txt; sql/02_generar_datos.sql|v2 / 15-11-2026|Yin
-E-02|Dataset procesado y perfil de calidad|evidencias/E-02_validacion_ssms.png; resultados/salida_05_validacion_dataset.txt|v2 / 15-11-2026|Yin
+E-01|Dataset original y ficha de procedencia|DATOS_FICTICIOS/1_Base_dia_a_dia (OLTP)/; sql/02_generar_datos.sql|v2 / 15-11-2026|Yin
+E-02|Dataset procesado y perfil de calidad|evidencias/E-02_validacion_ssms.png; DATOS_FICTICIOS/4_Resultados_de_las_consultas/01_validacion_de_los_datos.txt|v2 / 15-11-2026|Yin
 E-03|Datos de prueba/sintéticos y método|sql/02_generar_datos.sql (método HASHBYTES)|v2 / 15-11-2026|Yin
 E-04|Diseño experimental y configuraciones|Pendiente (capítulo IV, entrega final)|Entrega final|Pirsin
 E-05|Diagrama de arquitectura y esquema de datos|diagramas/E-05a, E-05b, E-05c; evidencias/E-05_backups_ssms.png|v0.6 / 15-11-2026|Channel
 E-06|SQL/NoSQL/Spark, scripts y notebook|sql/01 a 11; sql/demo/; evidencias/E-06a a E-06d|v0.6 / 15-11-2026|Gutiérrez
 E-07|Resultados de la solución BI|dashboard/Dashboard_Andina.xlsx; evidencias/E-07, E-07b, E-07c|v0.6 / 15-11-2026|Pirsin
 E-08|Resultados de la solución Big Data|Pendiente (notebook PySpark)|Entrega final|Gutiérrez
-E-09|Comparación de escenarios y métricas|evidencias/E-09b (prueba de viabilidad, sección 3.7); resultados/RUN-03_resultados_crudos.csv|v0.6 / 15-11-2026|Pirsin
-E-10|Logs, capturas y visualizaciones|resultados/*.txt, *.log; evidencias/*.png|v0.6 / 15-11-2026|Todos
+E-09|Comparación de escenarios y métricas|evidencias/E-09b (prueba de viabilidad, sección 3.7); DATOS_FICTICIOS/3_Prueba_de_viabilidad/Resultado.csv|v0.6 / 15-11-2026|Pirsin
+E-10|Logs, capturas y visualizaciones|DATOS_FICTICIOS/4_Resultados_de_las_consultas/; resultados/*.log; evidencias/*.png|v0.6 / 15-11-2026|Todos
 E-11|Conclusiones, recomendaciones y decisiones|Pendiente (capítulo VII, entrega final)|Entrega final|Channel
 E-12|Retroalimentación y mejoras implementadas|Secciones 1.6 y 3.7 (mejoras del avance); detalle en 5.5 en la entrega final|v0.6 / 15-11-2026|Todos
 E-13|Solución BI funcional / demostración|dashboard/Dashboard_Andina.xlsx (demostración en vivo)|v0.6 / 15-11-2026|Pirsin

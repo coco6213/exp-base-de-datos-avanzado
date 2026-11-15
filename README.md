@@ -14,7 +14,8 @@ solución de **Inteligencia de Negocios** (hasta el tema *Inteligencia de Negoci
 | `dashboard/` | `Dashboard_Andina.xlsx` – dashboard BI conectado al Data Warehouse. |
 | `diagramas/` | Arquitectura, diagrama entidad-relación y esquema estrella (HTML + PNG). |
 | `evidencias/` | Capturas con código E-xx, marcadas con cuadros rojos. |
-| `resultados/` | Salidas de cada script, logs RUN-xx y resultados crudos del experimento. |
+| `DATOS_FICTICIOS/` | **Los datos simulados** exportados a CSV (base diaria, Data Warehouse, prueba de viabilidad) y lo que salió de cada consulta. Empezar por `LEEME_PRIMERO.txt`. |
+| `resultados/` | Logs de las ejecuciones (RUN-xx) y salidas de los scripts que no están en DATOS_FICTICIOS. |
 | `informe/` | Informe de Proyecto Final (avance) y presentación. |
 
 ## Requisitos
