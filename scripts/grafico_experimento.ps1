@@ -24,7 +24,7 @@ function G($rango, $titulo, $eje, $file, $top) {
   $ch.SeriesCollection(2).Format.Fill.ForeColor.RGB = 0x2E9BE8   # naranja
   $ch.SeriesCollection(3).Format.Fill.ForeColor.RGB = 0x8B5A1F   # azul
   for ($s = 1; $s -le 3; $s++) { $ch.SeriesCollection($s).HasDataLabels = $true; $ch.SeriesCollection($s).DataLabels().Font.Size = 9 }
-  Start-Sleep 1; $ch.Export($file) | Out-Null
+  $sh.Select() | Out-Null; Start-Sleep 2; $ch.Export($file) | Out-Null
 }
 G 'A1:D5' 'Tiempo promedio por consulta (ms, 10 corridas en caliente) - menos es mejor' 'Milisegundos' "$root\evidencias\E-09b_grafico_tiempos.png" 160
 G 'F1:I5' 'Paginas leidas por consulta (lecturas logicas) - menos es mejor' 'Paginas de 8 KB' "$root\evidencias\E-09c_grafico_lecturas.png" 560

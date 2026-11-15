@@ -158,7 +158,7 @@ EXP-01 compara E1, E2 y E3. EXP-03 analiza el efecto de la memoria caché (corri
 • Paralelismo: SQL Server usa varios núcleos, por eso el CPU puede ser mayor que el tiempo; se reportan ambos.
 • Equivalencia: se validó que los 3 escenarios devuelven exactamente el mismo resultado (checksum idéntico), así la comparación es justa.
 @@H 5.1 Estructura y versión del repositorio
-Repositorio Git local (pendiente de publicar en GitHub/GitLab y compartir con el docente). Rama: main. Etiqueta del avance: v0.6-avance-s6. Hash y fecha: ver Anexo H.
+Repositorio Git local (pendiente de publicar en GitHub/GitLab y compartir con el docente). Rama: main. Etiqueta del avance: v0.6-avance-s6. Commit 248dbd9e6bca33155a8cdf9e8fa3f807a2228615 del 15/11/2026 00:37 (UTC-5).
 Estructura de carpetas:
 • sql/ – scripts 01 a 11 numerados en orden de ejecución, y sql/demo/ con las consultas usadas para las capturas.
 • scripts/ – crear_dashboard_excel.ps1, grafico_experimento.ps1, captura.ps1 y ui.ps1 (automatización de evidencias).
@@ -170,9 +170,9 @@ Estructura de carpetas:
 Dependencias: SQL Server 2025 Developer, sqlcmd 18, ODBC Driver 18, Excel 365, PowerShell 5.1. El README.md explica cómo reproducir todo.
 @@H 5.2 Implementación de la solución BI
 Componentes implementados y su script: base OLTP (01), datos (02), automatización (03), seguridad (04), validación (05), ETL y DW (06), experimento (07), pruebas (08), respaldos (09), vista del dashboard (10), reconciliación (11) y dashboard Excel (crear_dashboard_excel.ps1). Fragmento clave del ETL (regla R2 y R5):
-WHERE v.Estado = 'EMITIDA' AND d.Cantidad > 0 AND d.Subtotal > 0   -- excluye anuladas y valores no válidos
+CODE: WHERE v.Estado = 'EMITIDA' AND d.Cantidad > 0 AND d.Subtotal > 0   -- excluye anuladas y valores no válidos
 Fragmento clave del modelo físico:
-CREATE CLUSTERED COLUMNSTORE INDEX CCI_FactVentas ON dbo.FactVentas;   -- guarda la tabla por columnas y comprimida
+CODE: CREATE CLUSTERED COLUMNSTORE INDEX CCI_FactVentas ON dbo.FactVentas;   -- guarda la tabla por columnas y comprimida
 Las capturas de ejecución están en las figuras 4 a 11.
 @@H 5.3 Implementación de la solución Big Data
 Pendiente para la entrega final (semanas 9-11): ingesta del dataset exportado desde SQL Server a CSV/Parquet, procesamiento con DataFrames y SparkSQL en PySpark y notebook .ipynb.
@@ -238,6 +238,7 @@ Microsoft. (2025). Índices de almacén de columnas: información general. Micro
 Microsoft. (2025). Información general sobre copias de seguridad (SQL Server). Microsoft Learn. https://learn.microsoft.com/es-es/sql/relational-databases/backup-restore/backup-overview-sql-server
 Ortega Candel, J. M. (2023). Big data, machine learning y data science en Python. RC Libros.
 Universidad (curso CIIN1487R). (2026). Desafío del curso: DataShield 360 – Construyendo el ecosistema de datos seguro e inteligente para la empresa peruana [Documento del curso Base de Datos Avanzadas y Big Data].
+@@S Actualice el índice automático después
 @@S Complete el manifiesto. Cada evidencia debe existir
 Todas las rutas son relativas a la carpeta raíz del repositorio (versión v0.6-avance-s6, 15/11/2026).
 
@@ -444,19 +445,19 @@ OE-04|E3 vs E1: 9,5-11,5x más rápido en Q1-Q3; 92-95 % menos páginas|El DW co
 OE-01|10 pruebas PASA (ROLLBACK, auditoría, roles, backups)|La automatización y la seguridad cumplen los requisitos|Programar backups y probar restauración mensual|E-06a-c, E-05 / 7.3 R2
 
 @@T 23
-E-01|resultados/salida_02_generar_datos.txt; sql/02_generar_datos.sql|v2 / 15-11-2026|Yin
-E-02|evidencias/E-02_validacion_ssms.png; resultados/salida_05_validacion_dataset.txt|v2 / 15-11-2026|Yin
-E-03|sql/02_generar_datos.sql (método HASHBYTES)|v2 / 15-11-2026|Yin
-E-04|sql/07_experimento.sql; capítulo IV|v0.6 / 15-11-2026|Pirsin
-E-05|diagramas/E-05a, E-05b, E-05c; evidencias/E-05_backups_ssms.png|v0.6 / 15-11-2026|Channel
-E-06|sql/01 a 11; sql/demo/; evidencias/E-06a a E-06d|v0.6 / 15-11-2026|Gutiérrez
-E-07|dashboard/Dashboard_Andina.xlsx; evidencias/E-07, E-07b, E-07c|v0.6 / 15-11-2026|Pirsin
-E-08|Pendiente (notebook PySpark)|Entrega final|Gutiérrez
-E-09|evidencias/E-09, E-09b, E-09c; resultados/RUN-03_resultados_crudos.csv|v0.6 / 15-11-2026|Pirsin
-E-10|resultados/*.txt, *.log; evidencias/*.png|v0.6 / 15-11-2026|Todos
-E-11|Capítulo VII de este informe|v0.6 / 15-11-2026|Channel
-E-12|Sección 5.5; resultados/RUN-02 vs RUN-03|v0.6 / 15-11-2026|Todos
-E-13|dashboard/Dashboard_Andina.xlsx (demostración en vivo)|v0.6 / 15-11-2026|Pirsin
-E-14|Pendiente|Entrega final|Gutiérrez
-E-15|Sección 5.6; historial Git (Anexo H)|v0.6 / 15-11-2026|Todos
-E-16|Sección 5.7 y declaración final|v0.6 / 15-11-2026|Todos
+E-01|Dataset original y ficha de procedencia|resultados/salida_02_generar_datos.txt; sql/02_generar_datos.sql|v2 / 15-11-2026|Yin
+E-02|Dataset procesado y perfil de calidad|evidencias/E-02_validacion_ssms.png; resultados/salida_05_validacion_dataset.txt|v2 / 15-11-2026|Yin
+E-03|Datos de prueba/sintéticos y método|sql/02_generar_datos.sql (método HASHBYTES)|v2 / 15-11-2026|Yin
+E-04|Diseño experimental y configuraciones|sql/07_experimento.sql; capítulo IV|v0.6 / 15-11-2026|Pirsin
+E-05|Diagrama de arquitectura y esquema de datos|diagramas/E-05a, E-05b, E-05c; evidencias/E-05_backups_ssms.png|v0.6 / 15-11-2026|Channel
+E-06|SQL/NoSQL/Spark, scripts y notebook|sql/01 a 11; sql/demo/; evidencias/E-06a a E-06d|v0.6 / 15-11-2026|Gutiérrez
+E-07|Resultados de la solución BI|dashboard/Dashboard_Andina.xlsx; evidencias/E-07, E-07b, E-07c|v0.6 / 15-11-2026|Pirsin
+E-08|Resultados de la solución Big Data|Pendiente (notebook PySpark)|Entrega final|Gutiérrez
+E-09|Comparación de escenarios y métricas|evidencias/E-09, E-09b, E-09c; resultados/RUN-03_resultados_crudos.csv|v0.6 / 15-11-2026|Pirsin
+E-10|Logs, capturas y visualizaciones|resultados/*.txt, *.log; evidencias/*.png|v0.6 / 15-11-2026|Todos
+E-11|Conclusiones, recomendaciones y decisiones|Capítulo VII de este informe|v0.6 / 15-11-2026|Channel
+E-12|Retroalimentación y mejoras implementadas|Sección 5.5; resultados/RUN-02 vs RUN-03|v0.6 / 15-11-2026|Todos
+E-13|Solución BI funcional / demostración|dashboard/Dashboard_Andina.xlsx (demostración en vivo)|v0.6 / 15-11-2026|Pirsin
+E-14|Solución Big Data funcional / demostración|Pendiente|Entrega final|Gutiérrez
+E-15|Aportes individuales y defensa|Sección 5.6; historial Git (git log --oneline)|v0.6 / 15-11-2026|Todos
+E-16|Declaración de uso responsable de IA|Sección 5.7 y declaración final|v0.6 / 15-11-2026|Todos
