@@ -65,9 +65,9 @@ Stat $s 600 250 320 '60 días' 'plazo para demostrar cumplimiento normativo' $GO
 # 3. Alcance
 $s = Slide 'Qué incluye este avance (y qué falta)' 'Este avance cubre hasta BI y visualización, como pidió el profesor. Lo de la derecha es lo que entregaremos al final del curso.'
 [void](Txt $s 40 92 430 30 'Incluido hoy (semana 6)' 20 $GREEN -bold)
-[void](Bullets $s 40 128 430 340 @('Base transaccional de 11 tablas con datos simulados (200 000 ventas)', '3 procedimientos y 2 triggers con COMMIT / ROLLBACK', '3 roles, auditoría y respaldos completo, diferencial y log', 'ETL con 5 reglas de limpieza y Data Warehouse (esquema estrella)', 'Dashboard BI en Excel con filtros OLAP', 'Experimento de rendimiento con 3 escenarios') 16)
+[void](Bullets $s 40 128 430 340 @('Base transaccional de 11 tablas con datos simulados (200 000 ventas)', '3 procedimientos y 2 triggers con COMMIT / ROLLBACK', '3 roles, auditoría y respaldos completo, diferencial y log', 'ETL con 5 reglas de limpieza y Data Warehouse (esquema estrella)', 'Dashboard BI en Excel con filtros OLAP', 'Prueba de viabilidad del rendimiento (3 escenarios)') 16)
 [void](Txt $s 500 92 430 30 'Entrega final (semanas 7-16)' 20 $GOLD -bold)
-[void](Bullets $s 500 128 420 340 @('MongoDB: comentarios y rutas en JSON (CRUD)', 'PySpark: ranking y estacionalidad con ≥ 10 000 registros', 'Integrar resultados de Spark al dashboard', 'Informe de Medición completo') 16)
+[void](Bullets $s 500 128 420 340 @('MongoDB: comentarios y rutas en JSON (CRUD)', 'PySpark: ranking y estacionalidad con ≥ 10 000 registros', 'Integrar resultados de Spark al dashboard', 'Experimento completo, resultados y conclusiones (cap. IV-VIII)', 'Informe de Medición completo') 16)
 
 # 4. Arquitectura
 $s = Slide 'Arquitectura de la solución' 'Así viajan los datos: se registran en la base del día a día, el ETL los limpia y los pasa al Data Warehouse, y el dashboard los muestra a la gerencia. Abajo, punteado, lo que agregaremos con Big Data.'
@@ -101,7 +101,7 @@ $s = Slide 'Qué nos dice el dashboard' 'Lo más importante para la gerencia: no
 [void](Txt $s 30 400 500 40 'Filtro OLAP: año 2025 + Lima → S/ 29,97 millones' 13 $GRAY)
 
 # 10. Experimento
-$s = Slide 'Experimento: ¿el Data Warehouse realmente acelera?' 'Medimos 4 preguntas de la gerencia en 3 escenarios, 10 veces cada una. Las barras azules son el Data Warehouse: siempre las más bajas, es decir, las más rápidas.'
+$s = Slide 'Prueba de viabilidad: ¿el Data Warehouse acelera los reportes?' 'Medimos 4 preguntas de la gerencia en 3 escenarios, 10 veces cada una. Las barras azules son el Data Warehouse: siempre las más bajas, es decir, las más rápidas.'
 [void](Img $s 'evidencias\E-09b_grafico_tiempos.png' 30 85 600 320)
 [void](Bullets $s 650 95 280 320 @('E1: base actual', 'E2: base + 4 índices', 'E3: Data Warehouse columnar', '4 consultas × 10 repeticiones + 1 en frío', 'Mismo resultado en los 3 (checksum)') 15)
 [void](Txt $s 30 415 900 60 'Hipótesis: E3 al menos 5 veces más rápido que E1 en los reportes → SE CUMPLE (9,5 a 11,5 veces).' 16 $NAVY -bold)

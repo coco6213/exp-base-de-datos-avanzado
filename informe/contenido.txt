@@ -1,14 +1,14 @@
 @@H RESUMEN
-Distribuidora Andina Comercial S.A.C. (empresa ficticia del caso DataShield 360) vende productos de consumo masivo en Lima, Arequipa y Trujillo, pero decide con reportes de Excel hechos a mano a fin de mes y su base de datos SQL Server no tiene automatización, auditoría ni respaldos formales. Este avance (semana 6) cubre el proyecto hasta el tema de Inteligencia de Negocios y Visualización de Datos. El objetivo fue construir una solución BI segura y medible: una base transaccional de 11 tablas con 3 procedimientos almacenados, 2 triggers de auditoría, 3 roles y política de respaldo; un proceso ETL con 5 reglas de limpieza; un Data Warehouse en esquema estrella con índice columnar; y un dashboard en Excel con 4 KPI, 4 gráficos y filtros OLAP. Se usó un dataset simulado y reproducible de 200 000 ventas y 599 806 líneas de detalle (2023-2025). Para validar la solución se diseñó un experimento con 3 escenarios (base transaccional sin índices, con índices y Data Warehouse) y 4 consultas de negocio, midiendo tiempo, CPU y páginas leídas con 10 repeticiones. El Data Warehouse respondió los reportes entre 7,7 y 11,5 veces más rápido y leyó entre 87 % y 95 % menos páginas; los índices tradicionales solo aceleraron la búsqueda puntual de un cliente. El ETL cuadró al céntimo con el origen (S/ 180 113 494,64) y las 8 pruebas funcionales y de seguridad pasaron. Se concluye que separar la base del día a día del Data Warehouse es la decisión técnica correcta para el análisis gerencial. La solución Big Data (PySpark) y NoSQL (MongoDB) se desarrollará en la entrega final.
+Distribuidora Andina Comercial S.A.C. (empresa ficticia del caso DataShield 360) vende productos de consumo masivo en Lima, Arequipa y Trujillo, pero decide con reportes de Excel hechos a mano a fin de mes y su base de datos SQL Server no tiene automatización, auditoría ni respaldos formales. Este avance (semana 6) cubre el proyecto hasta el tema de Inteligencia de Negocios y Visualización de Datos. El objetivo fue construir una solución BI segura y medible: una base transaccional de 11 tablas con 3 procedimientos almacenados, 2 triggers de auditoría, 3 roles y política de respaldo; un proceso ETL con 5 reglas de limpieza; un Data Warehouse en esquema estrella con índice columnar; y un dashboard en Excel con 4 KPI, 4 gráficos y filtros OLAP. Se usó un dataset simulado y reproducible de 200 000 ventas y 599 806 líneas de detalle (2023-2025). Como prueba de viabilidad se compararon 3 escenarios (base transaccional sin índices, con índices y Data Warehouse) con 4 consultas de negocio y 10 repeticiones. El Data Warehouse respondió los reportes entre 7,7 y 11,5 veces más rápido y leyó entre 87 % y 95 % menos páginas; los índices tradicionales solo aceleraron la búsqueda puntual de un cliente. El ETL cuadró al céntimo con el origen (S/ 180 113 494,64) y las 10 pruebas funcionales y de seguridad pasaron. Se concluye que separar la base del día a día del Data Warehouse es la decisión técnica correcta para el análisis gerencial. La solución Big Data (PySpark) y NoSQL (MongoDB) se desarrollará en la entrega final.
 Palabras clave: data warehouse, esquema estrella, ETL, índice columnar, OLAP.
 @@H ABSTRACT
-Distribuidora Andina Comercial S.A.C. (a fictitious company from the DataShield 360 case) sells consumer goods in Lima, Arequipa and Trujillo, but it makes decisions with hand-made Excel reports at the end of each month, and its SQL Server database has no automation, auditing or formal backups. This progress report (week 6) covers the project up to the Business Intelligence and Data Visualization topic. The goal was to build a secure and measurable BI solution: an 11-table transactional database with 3 stored procedures, 2 audit triggers, 3 roles and a backup policy; an ETL process with 5 cleaning rules; a star-schema Data Warehouse with a columnstore index; and an Excel dashboard with 4 KPIs, 4 charts and OLAP filters. A simulated, reproducible dataset of 200,000 sales and 599,806 detail lines (2023-2025) was used. To validate the solution, an experiment with 3 scenarios (transactional database without indexes, with indexes, and Data Warehouse) and 4 business queries was designed, measuring time, CPU and pages read over 10 repetitions. The Data Warehouse answered the reports between 7.7 and 11.5 times faster and read between 87% and 95% fewer pages; traditional indexes only sped up the single-customer lookup. The ETL reconciled to the cent with the source (S/ 180,113,494.64) and all 8 functional and security tests passed. We conclude that separating the day-to-day database from the Data Warehouse is the right technical decision for management analysis. The Big Data (PySpark) and NoSQL (MongoDB) solution will be developed for the final delivery.
+Distribuidora Andina Comercial S.A.C. (a fictitious company from the DataShield 360 case) sells consumer goods in Lima, Arequipa and Trujillo, but it makes decisions with hand-made Excel reports at the end of each month, and its SQL Server database has no automation, auditing or formal backups. This progress report (week 6) covers the project up to the Business Intelligence and Data Visualization topic. The goal was to build a secure and measurable BI solution: an 11-table transactional database with 3 stored procedures, 2 audit triggers, 3 roles and a backup policy; an ETL process with 5 cleaning rules; a star-schema Data Warehouse with a columnstore index; and an Excel dashboard with 4 KPIs, 4 charts and OLAP filters. A simulated, reproducible dataset of 200,000 sales and 599,806 detail lines (2023-2025) was used. As a feasibility test, 3 scenarios (transactional database without indexes, with indexes, and Data Warehouse) were compared with 4 business queries and 10 repetitions. The Data Warehouse answered the reports between 7.7 and 11.5 times faster and read between 87% and 95% fewer pages; traditional indexes only sped up the single-customer lookup. The ETL reconciled to the cent with the source (S/ 180,113,494.64) and all 10 functional and security tests passed. We conclude that separating the day-to-day database from the Data Warehouse is the right technical decision for management analysis. The Big Data (PySpark) and NoSQL (MongoDB) solution will be developed for the final delivery.
 Keywords: data warehouse, star schema, ETL, columnstore index, OLAP.
 @@H 1.1 Contexto y necesidad empresarial
 Distribuidora Andina Comercial S.A.C. es una empresa ficticia que distribuye productos de consumo masivo (abarrotes, bebidas, lácteos, limpieza, snacks, etc.) a bodegas, minimarkets y mayoristas desde 6 almacenes en Lima, Arequipa y Trujillo. Sus procesos críticos son: ventas, control de inventario y distribución.
 Usuarios: vendedores (registran ventas), jefes de almacén (controlan stock), gerencia comercial y general (deciden metas, compras y campañas) y el área de TI liderada por Diego Paredes.
 Situación actual (línea base del caso): la base SQL Server no tiene procedimientos estandarizados ni triggers de auditoría, los respaldos son manuales y los gerentes deciden con reportes de Excel que se arman una vez al mes. Además, la autoridad de protección de datos exige demostrar cumplimiento en 60 días. El caso cita que el 78 % de empresas peruanas medianas tuvo incidentes de pérdida de datos y que el 91 % decide sin soporte analítico formal.
-Línea base cuantitativa usada en este proyecto: 200 000 ventas en 3 años (≈ 5 556 por mes), 599 806 líneas de detalle y S/ 185,6 millones facturados (incluye anuladas). Antes de la solución, un reporte por región y mes debía construirse a mano; con la base actual sin optimizar la consulta equivalente tarda en promedio 266 ms y lee 4 818 páginas (escenario E1 del experimento).
+Línea base cuantitativa usada en este proyecto: 200 000 ventas en 3 años (≈ 5 556 por mes), 599 806 líneas de detalle y S/ 185,6 millones facturados (incluye anuladas). Antes de la solución, un reporte por región y mes debía construirse a mano; con la base actual sin optimizar la consulta equivalente tarda en promedio 266 ms y lee 4 818 páginas (prueba de viabilidad, sección 3.7).
 @@H 1.2 Formulación del problema de ingeniería
 Problema: ¿cómo transformar una base de datos transaccional sin controles en un ecosistema de datos que proteja la información y entregue indicadores de ventas confiables y rápidos para la gerencia, sobre cientos de miles de registros que crecen cada año?
 Causas: (1) la misma base sirve para registrar ventas y para hacer reportes, lo que la vuelve lenta para analizar; (2) no hay reglas automáticas que eviten errores (por ejemplo, vender sin stock); (3) no se registra quién cambia datos sensibles; (4) los datos tienen problemas de calidad (ventas anuladas mezcladas, nombres con espacios, emails vacíos).
@@ -21,11 +21,11 @@ Objetivos específicos:
 OE-01 (Base y automatización): crear la base transaccional con al menos 6 tablas relacionadas, 3 procedimientos almacenados y 2 triggers con TRY-CATCH y COMMIT/ROLLBACK, verificados con pruebas.
 OE-02 (BI – ETL y Data Warehouse): diseñar un esquema estrella con 1 tabla de hechos y al menos 3 dimensiones y un ETL con al menos 3 reglas de limpieza cuya reconciliación tenga diferencia S/ 0,00.
 OE-03 (BI – Visualización): construir un dashboard con al menos 4 visualizaciones, KPI de ventas, análisis OLAP por tiempo, región y producto y un gráfico de tendencia.
-OE-04 (Experimentación): medir con al menos 3 escenarios y 10 repeticiones el tiempo y las lecturas de consultas analíticas para justificar el modelo elegido.
+OE-04 (Experimentación – entrega final): medir con al menos 3 escenarios y 10 repeticiones el tiempo y las lecturas de consultas analíticas. En este avance se hizo solo una prueba de viabilidad (sección 3.7).
 OE-05 (Big Data – entrega final): procesar con PySpark un dataset de al menos 10 000 registros y evaluar su escalabilidad.
 @@H 1.4 Alcance, restricciones y supuestos
-Incluido en este avance: proceso de ventas e inventario; base OLTP DistribuidoraAndina (11 tablas); automatización (3 procedimientos y 2 triggers); seguridad (3 roles, permisos por columna, auditoría); política de respaldo (completo, diferencial y log); ETL; Data Warehouse DW_Andina; dashboard BI en Excel; experimento de rendimiento BI.
-Excluido en este avance (va en la entrega final): componente NoSQL en MongoDB, procesamiento Big Data con PySpark, integración de resultados Spark al dashboard e Informe de Medición completo.
+Incluido en este avance: proceso de ventas e inventario; base OLTP DistribuidoraAndina (11 tablas); automatización (3 procedimientos y 2 triggers); seguridad (3 roles, permisos por columna, auditoría); política de respaldo (completo, diferencial y log); ETL; Data Warehouse DW_Andina; dashboard BI en Excel; prueba de viabilidad del rendimiento BI.
+Excluido en este avance (va en la entrega final): componente NoSQL en MongoDB, procesamiento Big Data con PySpark, integración de resultados Spark al dashboard, capítulos IV a VIII (experimento completo, implementación, resultados y conclusiones) e Informe de Medición.
 Restricciones técnicas: (1) un solo servidor con SQL Server 2025 Developer, sin clúster; (2) Power BI no está instalado, por eso el dashboard se construyó con Excel 365 (tablas dinámicas y segmentadores); (3) MongoDB y Python/Spark no están instalados todavía; (4) datos 100 % simulados por privacidad; (5) costo de licencias S/ 0.
 Supuestos verificables: los volúmenes simulados (≈ 600 000 líneas) representan 3 años de operación de una distribuidora mediana; la estacionalidad de noviembre-diciembre (campaña navideña) es realista; las consultas Q1-Q4 representan las preguntas reales de la gerencia.
 @@H 1.5 Stakeholders y criterios de éxito
@@ -35,7 +35,7 @@ Procedencia: todos los datos son simulados con el script 02_generar_datos.sql (s
 Datos personales: la tabla Cliente contiene RUC, email y teléfono. Se aplicó minimización: el Data Warehouse no copia esos campos (solo un indicador TieneEmail SI/NO) y el rol analista tiene prohibido (DENY) leerlos.
 Calidad: se perfiló el dataset con 13 validaciones (completitud, duplicados, consistencia y rangos). Se detectaron y trataron a propósito 50 clientes sin email, 8 productos con nombres sucios y 5 893 ventas anuladas.
 Control de acceso y retención: 3 roles (administrador, analista, operativo); el log de auditoría guarda quién, qué y cuándo; los respaldos se retienen 30 días (propuesta).
-Riesgo de sesgo: en la versión 1 del dataset todos los clientes de Lima salían como "bodega" porque el segmento dependía de la misma fórmula que la región; se detectó en el dashboard y se corrigió (sección 5.5).
+Riesgo de sesgo: en la versión 1 del dataset todos los clientes de Lima salían como "bodega" porque el segmento dependía de la misma fórmula que la región; se detectó en el dashboard y se corrigió en la versión 2 del generador, agregando la validación V13.
 @@H 2.1 Antecedentes
 A1. Chaudhuri y Dayal (1997) revisaron la tecnología de data warehousing y OLAP. Problema: las bases operativas no sirven para análisis. Método: arquitectura con extracción, limpieza y carga a un almacén separado y modelado multidimensional (estrella y copo de nieve). Métricas: conceptuales. Aporte: justifica separar la base OLTP del Data Warehouse y usar operaciones OLAP (drill-down, slice and dice) en nuestro dashboard.
 A2. Kimball y Ross (2013) propusieron el diseño dimensional en cuatro pasos: elegir el proceso de negocio, declarar el grano, identificar dimensiones e identificar hechos. Datos: casos de retail y distribución. Resultado: modelos simples y rápidos para el usuario de negocio. Aporte: seguimos estos pasos para FactVentas (grano = un producto en una venta).
@@ -61,7 +61,7 @@ Tecnologías usadas y criterio de selección: SQL Server 2025 Developer 17.0 (mo
 Comparación breve: Power BI ofrece mejores visualizaciones pero no está instalado en el laboratorio; Tableau Public publica los datos en internet (riesgo de privacidad); Excel es suficiente para 4 KPI y filtros OLAP y lo conocen los gerentes. Para el ETL, SSIS es más visual pero agrega una herramienta más; un procedimiento T-SQL es más fácil de versionar y probar.
 Estándares considerados: Ley N.° 29733 de Protección de Datos Personales del Perú (consentimiento, finalidad, seguridad) e ISO/IEC 27001:2022 (control de acceso, registro de eventos, copias de respaldo). Se detallan en la sección 3.6.
 @@H 3.1 Requerimientos funcionales y no funcionales
-Cada requisito tiene un código para rastrearlo hasta su prueba (sección 5.4).
+Cada requisito tiene un código para rastrearlo hasta su prueba (resultados en la sección 3.7).
 [[NT:req]]
 @@H 3.2 Alternativas y decisiones de arquitectura
 Se compararon 3 alternativas en 4 módulos usando criterios con peso (rendimiento 30 %, costo 25 %, facilidad/mantenibilidad 25 %, seguridad 20 %).
@@ -132,98 +132,63 @@ Rollback: cada script de creación borra y vuelve a crear su base, y existe el b
 Criterios de aceptación: pruebas T-01 a T-08 en estado PASA, reconciliación con diferencia S/ 0,00, dashboard con 4 visualizaciones y filtros funcionando, y E3 al menos 5 veces más rápido que E1.
 Cronograma con hitos (ruta crítica marcada con *; incluye días de contingencia en los hitos de mayor riesgo):
 [[NT:crono]]
-Prueba de viabilidad del componente más incierto: el componente con más incertidumbre era si el Data Warehouse realmente mejoraría la velocidad de los reportes frente a solo agregar índices a la base actual. Se ejecutó el experimento EXP-01 (capítulo IV-VI). Veredicto: VIABLE (E3 fue 7,7 a 11,5 veces más rápido). Decisión y ajuste trazable: el dashboard se conecta al DW y no al OLTP; los índices de E2 se mantienen solo para consultas operativas (Q4). Se eliminó la tarea "optimizar índices del OLTP para reportes" (2 días) y ese tiempo se movió como contingencia al hito H6 (PySpark).
+Resultados de las pruebas de aceptación (scripts 08 y 11; salidas en la carpeta resultados/):
+[[NT:pruebas]]
+Prueba de viabilidad del componente más incierto: el componente con más incertidumbre era si el Data Warehouse realmente mejoraría la velocidad de los reportes frente a solo agregar índices a la base actual. Se midieron 4 consultas de la gerencia en 3 escenarios (E1 base actual, E2 base + 4 índices, E3 Data Warehouse columnar), 10 veces cada una, comprobando que los 3 devuelven el mismo resultado. Veredicto: VIABLE (E3 fue 7,7 a 11,5 veces más rápido y leyó hasta 95 % menos páginas). El análisis completo se presentará en el capítulo IV de la entrega final.
+[[IMG:evidencias\E-09b_grafico_tiempos.png|Figura 12. Prueba de viabilidad: tiempo promedio por consulta y escenario (ms, 10 corridas). Fuente: elaboración propia (evidencia E-09).|15]]
+Decisión y ajuste trazable: el dashboard se conecta al DW y no al OLTP; los índices de E2 se mantienen solo para consultas operativas (Q4). Se eliminó la tarea "optimizar índices del OLTP para reportes" (2 días) y ese tiempo se movió como contingencia al hito H6 (PySpark).
 @@H 4.1 Pregunta experimental, objetivo e hipótesis
-Pregunta: ¿cuánto se reduce el tiempo de respuesta y las páginas leídas de las consultas de negocio al pasar de la base transaccional actual (E1) a la misma base con índices (E2) y a un Data Warehouse con índice columnar (E3)?
-Objetivo: comparar los 3 escenarios con las mismas 4 consultas y el mismo dataset, para justificar con datos la arquitectura BI (relacionado con OE-02 y OE-04).
-Hipótesis H1: E3 responderá las consultas analíticas (Q1-Q3) al menos 5 veces más rápido que E1. Hipótesis H2: E2 mejorará sobre todo la consulta puntual (Q4) y poco las analíticas.
+Pendiente para la entrega final (semana 16).
 @@H 4.2 Escenario y datasets
+Pendiente para la entrega final (semana 16).
 @@H 4.3 Variables, métricas y criterios de aceptación
+Pendiente para la entrega final (semana 16).
 @@H 4.4 Entorno, herramientas y reproducibilidad
-Equipo: PC DESKTOP-4FJH385, Windows 11 Pro (build 26200). Fecha de ejecución final: 15/11/2026. Responsable de ejecución: equipo (ver 5.6). Semilla: el dataset no usa azar; usa HASHBYTES('MD5') del número de fila, por eso es idéntico en cada ejecución.
+Pendiente para la entrega final (semana 16).
 @@H 4.5 Matriz de escenarios experimentales
-EXP-01 compara E1, E2 y E3. EXP-03 analiza el efecto de la memoria caché (corrida en frío vs. en caliente). EXP-02 corresponde a Big Data y se ejecutará en la entrega final.
+Pendiente para la entrega final (semana 16).
 @@H 4.6 Procedimiento reproducible
-1. Clonar el repositorio en la versión v0.6-avance-s6 y verificar SQL Server 2025 y sqlcmd 18.
-2. Ejecutar 01_crear_bd_oltp.sql y 02_generar_datos.sql; ejecutar 05_validacion_dataset.sql y comprobar que la huella V0 sea HuellaVenta = 2115345625 y HuellaDetalle = -1892332103.
-3. Ejecutar 03, 04, 08, 06 y 11 (automatización, seguridad, pruebas, ETL y reconciliación).
-4. Ejecutar 07_experimento.sql: para cada escenario y consulta hace 1 corrida en frío (vacía la memoria con DBCC DROPCLEANBUFFERS) y 10 en caliente, sin otros usuarios conectados.
-5. El procedimiento usp_Medir guarda automáticamente tiempo, CPU, lecturas, filas y checksum de cada corrida en LabExperimento.dbo.Resultado.
-6. El mismo script calcula promedio, desviación estándar, mínimo, máximo y % de mejora; grafico_experimento.ps1 genera los gráficos.
-7. Se comparan los resultados con las metas de la sección 4.3 y se registran desviaciones en 6.2 y 6.5.
+Pendiente para la entrega final (semana 16).
 @@H 4.7 Riesgos, validez y limitaciones del experimento
-• Caché: los datos en memoria aceleran las consultas; se controla midiendo por separado la corrida en frío y 10 en caliente.
-• Variabilidad del equipo: la PC tiene otros programas abiertos; se reporta desviación estándar y se repitió el experimento 3 veces (RUN-01 a RUN-03).
-• Datos simulados: la distribución es uniforme entre productos; datos reales pueden tener más concentración. Los resultados se generalizan a volúmenes similares en un solo servidor.
-• Paralelismo: SQL Server usa varios núcleos, por eso el CPU puede ser mayor que el tiempo; se reportan ambos.
-• Equivalencia: se validó que los 3 escenarios devuelven exactamente el mismo resultado (checksum idéntico), así la comparación es justa.
+Pendiente para la entrega final (semana 16).
 @@H 5.1 Estructura y versión del repositorio
-Repositorio Git local (pendiente de publicar en GitHub/GitLab y compartir con el docente). Rama: main. Etiqueta del avance: v0.6-avance-s6. Commit 248dbd9e6bca33155a8cdf9e8fa3f807a2228615 del 15/11/2026 00:37 (UTC-5).
-Estructura de carpetas:
-• sql/ – scripts 01 a 11 numerados en orden de ejecución, y sql/demo/ con las consultas usadas para las capturas.
-• scripts/ – crear_dashboard_excel.ps1, grafico_experimento.ps1, captura.ps1 y ui.ps1 (automatización de evidencias).
-• dashboard/ – Dashboard_Andina.xlsx (BI).
-• diagramas/ – fuentes HTML y PNG de la arquitectura, diagrama ER y esquema estrella.
-• evidencias/ – capturas con código E-xx (marcadas con cuadros rojos).
-• resultados/ – salidas de cada script, logs RUN-xx y resultados crudos del experimento (CSV).
-• informe/ – este documento y la presentación.
-Dependencias: SQL Server 2025 Developer, sqlcmd 18, ODBC Driver 18, Excel 365, PowerShell 5.1. El README.md explica cómo reproducir todo.
+Pendiente para la entrega final (semana 16).
 @@H 5.2 Implementación de la solución BI
-Componentes implementados y su script: base OLTP (01), datos (02), automatización (03), seguridad (04), validación (05), ETL y DW (06), experimento (07), pruebas (08), respaldos (09), vista del dashboard (10), reconciliación (11) y dashboard Excel (crear_dashboard_excel.ps1). Fragmento clave del ETL (regla R2 y R5):
-CODE: WHERE v.Estado = 'EMITIDA' AND d.Cantidad > 0 AND d.Subtotal > 0   -- excluye anuladas y valores no válidos
-Fragmento clave del modelo físico:
-CODE: CREATE CLUSTERED COLUMNSTORE INDEX CCI_FactVentas ON dbo.FactVentas;   -- guarda la tabla por columnas y comprimida
-Las capturas de ejecución están en las figuras 4 a 11.
+Pendiente para la entrega final (semana 16).
 @@H 5.3 Implementación de la solución Big Data
-Pendiente para la entrega final (semanas 9-11): ingesta del dataset exportado desde SQL Server a CSV/Parquet, procesamiento con DataFrames y SparkSQL en PySpark y notebook .ipynb.
+Pendiente para la entrega final (semana 16).
 @@H 5.4 Calidad, seguridad y pruebas
-Todas las pruebas se ejecutan con 08_pruebas_calidad_seguridad.sql y 11_reconciliacion_etl.sql; las salidas quedan en resultados/.
+Pendiente para la entrega final (semana 16).
 @@H 5.5 Registro de retroalimentación y mejoras
+Pendiente para la entrega final (semana 16).
 @@H 5.6 Contribuciones individuales
-Distribución propuesta por el equipo (los integrantes deben confirmarla y enlazar sus commits antes de la entrega).
+Pendiente para la entrega final (semana 16).
 @@H 5.7 Declaración de uso responsable de inteligencia artificial
+Pendiente para la entrega final (semana 16).
 @@H 6.1 Validación del dataset original y procesado
-"Original" es la base transaccional (OLTP) y "procesado" es el Data Warehouse luego del ETL.
-[[IMG:evidencias\E-02_validacion_ssms.png|Figura 12. Volumen y pruebas de calidad del dataset en SSMS (evidencia E-02).|15.5]]
+Pendiente para la entrega final (semana 16).
 @@H 6.2 Registro de ejecuciones
+Pendiente para la entrega final (semana 16).
 @@H 6.3 Tabla consolidada de resultados
-Resultados de RUN-03 (10 corridas en caliente por consulta; promedio ± desviación estándar). No se descartaron corridas. Throughput = consultas por segundo (1000 / tiempo promedio).
-[[NT:resultados]]
-[[IMG:evidencias\E-09_experimento_ssms.png|Figura 13. Resultados del experimento consultados en SSMS: tiempo promedio por escenario y validación de resultados idénticos (evidencia E-09).|15.5]]
+Pendiente para la entrega final (semana 16).
 @@H 6.4 Visualizaciones y dashboards
-[[IMG:evidencias\E-09b_grafico_tiempos.png|Figura 14. Tiempo promedio por consulta y escenario (ms). Fuente: elaboración propia a partir de RUN-03 (evidencia E-09b).|16]]
-Decisión que permite: usar el Data Warehouse (barras azules) para todos los reportes del dashboard; la base transaccional queda para registrar ventas.
-[[IMG:evidencias\E-09c_grafico_lecturas.png|Figura 15. Páginas leídas por consulta y escenario. Fuente: elaboración propia a partir de RUN-03 (evidencia E-09c).|16]]
-Decisión que permite: el DW lee hasta 95 % menos páginas, lo que reduce la carga del servidor cuando varios gerentes consultan a la vez. Las capturas del dashboard BI están en las figuras 7 a 9.
+Pendiente para la entrega final (semana 16).
 @@H 6.5 Análisis e interpretación técnica
-Contraste con la hipótesis H1: se cumple. E3 fue 10,5 veces (Q1), 11,5 veces (Q2) y 9,5 veces (Q3) más rápido que E1 en las consultas analíticas, por encima de la meta de 5 veces.
-Contraste con la hipótesis H2: se cumple. Los índices de E2 hicieron la búsqueda de un cliente (Q4) 105 veces más rápida (de 50,9 a 0,5 ms), pero en las consultas analíticas el tiempo casi no cambió (Q2 y Q3 ≈ 1,0 vez; Q1 1,4 veces), aunque leyeron 37 % a 48 % menos páginas.
-Por qué: las consultas analíticas suman casi toda la tabla; un índice por filas ayuda a encontrar pocas filas, no a sumar todas. El columnstore solo lee las columnas que se usan y comprimidas (6 MB frente a 35 MB), por eso lee 92 % a 95 % menos.
-Patrón y anomalía (EXP-03): en frío, E3 fue más lento en Q1 (1 192 ms) y Q4 (1 566 ms) que E1 (455 y 147 ms) porque la primera vez debe cargar los segmentos columnares a memoria; desde la segunda corrida es el más rápido. En un dashboard que se usa todo el día este costo inicial ocurre una sola vez.
-Variabilidad: en RUN-01 la consulta Q1 en E1 tuvo una corrida atípica de 16 306 ms (desviación 5 077 ms) por actividad del equipo; en RUN-03 la desviación bajó a 11 ms. En RUN-02, E2 salió hasta 26 % más lento que E1 en Q1-Q3, lo que confirma que los índices no son una mejora segura para reportes. La conclusión sobre E3 se mantuvo en las 3 corridas (7 a 11 veces).
-Compromisos de ingeniería: el DW agrega un proceso ETL (11 s por carga) y los datos del dashboard se actualizan por lotes, no al instante; a cambio, los reportes son 10 veces más rápidos y no afectan las ventas. Los índices de E2 ocupan 2,3 veces más espacio (79,7 MB frente a 35,2 MB) y hacen más lentas las inserciones.
-Límites de inferencia: el experimento muestra que el cambio de escenario causa la mejora en este equipo y dataset, porque solo se cambió una variable a la vez; no permite asegurar el mismo factor con otro hardware, con muchos usuarios a la vez o con datos 10 veces más grandes (eso se medirá con Spark).
+Pendiente para la entrega final (semana 16).
 @@H 6.6 Verificación de funcionalidad y completitud
+Pendiente para la entrega final (semana 16).
 @@H 7.1 Matriz objetivo-resultado-conclusión-recomendación
-Matriz preliminar del avance (se completará con Big Data en la entrega final).
+Pendiente para la entrega final (semana 16).
 @@H 7.2 Conclusiones técnicas
-Conclusiones preliminares del avance:
-C1. El Data Warehouse con índice columnar es la arquitectura adecuada para los reportes: redujo el tiempo de las consultas analíticas entre 89,5 % y 91,3 % (9,5 a 11,5 veces más rápido) y las páginas leídas entre 92 % y 95 % frente a la base actual (figuras 14 y 15).
-C2. Agregar índices a la base transaccional no resuelve el problema de los reportes: solo mejoró la búsqueda puntual (Q4, 105 veces) y en Q2-Q3 la mejora fue ≈ 0 %, además de duplicar el espacio usado.
-C3. El ETL con 5 reglas garantiza información confiable: excluyó 17 667 líneas anuladas y cuadró al céntimo con el origen (S/ 180 113 494,64; diferencia S/ 0,00).
-C4. El dashboard revela un patrón accionable: la campaña de noviembre-diciembre vende 2,5 veces más por mes que el resto del año, y las ventas anuales están estancadas (−0,41 % en 2025), por lo que la gerencia debe planificar stock y nuevas acciones comerciales.
-C5. La automatización y la seguridad funcionan: las 8 pruebas pasaron, incluyendo el ROLLBACK de una venta sin stock y el bloqueo del email al rol analista.
+Pendiente para la entrega final (semana 16).
 @@H 7.3 Recomendaciones
-R1 (prioridad alta): conectar todos los reportes al DW y programar el ETL diario con SQL Server Agent a la 01:00; impacto: datos de un día de antigüedad en lugar de un mes.
-R2 (prioridad alta): programar los respaldos (completo semanal, diferencial diario y log cada 15 minutos) con SQL Server Agent y probar una restauración completa cada mes; impacto: pérdida máxima de 15 minutos de datos.
-R3 (prioridad media): pasar a carga incremental (solo ventas nuevas) cuando el volumen supere 2 millones de líneas, para que el ETL no crezca en tiempo.
-R4 (prioridad media): migrar el dashboard a Power BI en la entrega final si el laboratorio lo permite, para publicar y compartir en línea con control de acceso.
+Pendiente para la entrega final (semana 16).
 @@H 8.1 Tratamiento ético, legal y seguro de los datos
-Avance: ver sección 1.6 y 3.6 (datos simulados, minimización de datos personales, roles, auditoría y respaldo). Se completará en la entrega final.
+Pendiente para la entrega final (semana 16).
 @@H 8.2 Impactos de las soluciones
-Pendiente para la entrega final.
+Pendiente para la entrega final (semana 16).
 @@H 8.3 Compromiso profesional
-Pendiente para la entrega final.
+Pendiente para la entrega final (semana 16).
 @@S Incluya todas las fuentes citadas con formato APA vigente.
 Abadi, D. J., Madden, S. R., & Hachem, N. (2008). Column-stores vs. row-stores: How different are they really? En Proceedings of the 2008 ACM SIGMOD International Conference on Management of Data (pp. 967-980). ACM. https://doi.org/10.1145/1376616.1376712
 @@S <<Agregar referencias del proyecto>>
@@ -251,11 +216,22 @@ RF-04|Cargar el Data Warehouse con datos limpios (ETL)|5 reglas aplicadas; recon
 RF-05|Mostrar KPI y análisis OLAP en un dashboard|≥ 4 visualizaciones; filtros por año, región, segmento y temporada|T-09
 RF-06|Controlar el acceso por rol|Analista sin acceso a Email/Teléfono/RUC; operativo sin DELETE|T-06, T-07
 RF-07|Respaldar y verificar la base|Backup completo, diferencial y log con verificación VERIFYONLY válida|T-10
-RNF-01|Rendimiento de reportes|Consultas Q1-Q3 en el DW ≥ 5 veces más rápidas que en la base actual y < 100 ms en caliente|EXP-01
+RNF-01|Rendimiento de reportes|Consultas Q1-Q3 en el DW ≥ 5 veces más rápidas que en la base actual y < 100 ms en caliente|Prueba de viabilidad (3.7)
 RNF-02|Calidad de datos|0 duplicados de RUC, 0 huérfanos, 0 totales descuadrados (V2-V13)|V2-V13
 RNF-03|Seguridad y privacidad|DW sin datos personales; roles con mínimo privilegio|T-06, revisión DW
 RNF-04|Disponibilidad / recuperación|Pérdida máxima de datos (RPO) ≤ 15 min; recuperación (RTO) ≤ 1 h|T-10 (parcial)
-RNF-05|Reproducibilidad|Misma huella del dataset en 2 generaciones independientes|RUN-R
+RNF-05|Reproducibilidad|Misma huella del dataset en 2 generaciones independientes|Huella V0
+
+@@NT pruebas
+ID|QUÉ SE PROBÓ|RESULTADO ESPERADO|RESULTADO|EVIDENCIA
+T-01|Registrar una venta válida|Se guarda y responde OK|OK – PASA|Figura 5
+T-02|Venta sin stock|ROLLBACK, no se guarda nada|Total de ventas sin cambio – PASA|Figura 5
+T-03|Stock bajo el mínimo y sede inexistente|Alerta y error controlado|1 alerta; error controlado – PASA|resultados/
+T-04 / T-05|Cambio de email y de precio|Quedan auditados con antes/después|Registrados en AuditoriaLog – PASA|Figura 6
+T-06 / T-07|Analista lee email; operativo borra ventas|Ambos bloqueados|Permiso denegado – PASA|Figura 10
+T-08|Total OLTP vs total DW|Diferencia S/ 0,00|S/ 180 113 494,64 en ambos – PASA|Figura 4
+T-09|Filtro 2025 + Lima en el dashboard|KPI y gráficos se recalculan|S/ 29 973 672 – PASA|Figura 8
+T-10|Backups completo, diferencial y log|Archivos válidos (VERIFYONLY)|Válidos – PASA|Figura 11
 
 @@NT kpi
 PREGUNTA DE NEGOCIO|USUARIO / DECISIÓN|KPI Y FÓRMULA|GRANO / FRECUENCIA|FUENTE|META
@@ -309,7 +285,7 @@ ISO/IEC 27001:2022 – A.8.24|Uso de criptografía|Conexión ODBC cifrada; TDE n
 @@NT riesgos
 RIESGO|PROBABILIDAD|IMPACTO|MITIGACIÓN
 R1 Python/PySpark no instalado en el laboratorio|Alta|Alto|Instalar Python 3 y PySpark en S7 o usar Google Colab; 3 días de contingencia en H6
-R2 Dataset simulado con sesgos|Media|Medio|13 validaciones; sesgo región-segmento detectado y corregido (ciclo de mejora, 5.5)
+R2 Dataset simulado con sesgos|Media|Medio|13 validaciones; sesgo región-segmento detectado y corregido (ciclo de mejora, sección 1.6)
 R3 Mediciones variables por caché o equipo ocupado|Media|Medio|Corrida en frío + 10 en caliente, desviación estándar y 3 repeticiones del experimento
 R4 Exposición de datos personales|Baja|Alto|DENY por columna, DW sin datos personales, auditoría
 R5 MongoDB no instalado|Alta|Medio|Instalar MongoDB Community o usar Atlas gratuito en S7; 2 días de contingencia en H5
@@ -327,20 +303,6 @@ H7*|Integración Spark → dashboard y experimento Big Data|Pirsin|04/01 – 15/
 H8*|Informe de Medición, informe final y PPT|Channel|18/01 – 22/01/2027|5 días|Pendiente
 H9*|Sustentación final (semana 16)|Todos|25/01 – 29/01/2027|1 día|Pendiente
 
-@@NT resultados
-ESCENARIO|CONSULTA|TIEMPO PROM. (ms)|THROUGHPUT (cons/s)|CPU PROM. (ms)|PÁGINAS LEÍDAS|MEJORA vs E1
-E1 OLTP base|Q1 región x mes|266,1 ± 11,1|3,8|989|4 818|—
-E2 OLTP + índices|Q1|196,0 ± 6,6|5,1|716|2 498|1,4 x
-E3 DW columnstore|Q1|25,4 ± 5,7|39,3|25|296|10,5 x
-E1 OLTP base|Q2 top 10 productos|329,6 ± 28,4|3,0|1 514|4 720|—
-E2 OLTP + índices|Q2|326,5 ± 10,9|3,1|1 563|2 942|1,0 x
-E3 DW columnstore|Q2|28,7 ± 4,1|34,8|28|240|11,5 x
-E1 OLTP base|Q3 categoría x año|457,4 ± 64,0|2,2|1 871|4 779|—
-E2 OLTP + índices|Q3|449,8 ± 11,6|2,2|1 961|3 001|1,0 x
-E3 DW columnstore|Q3|47,9 ± 5,5|20,9|46|369|9,5 x
-E1 OLTP base|Q4 cliente puntual|50,9 ± 4,1|19,6|80|4 644|—
-E2 OLTP + índices|Q4|0,5 ± 1,0|> 1 000|0|43|105 x
-E3 DW columnstore|Q4|6,6 ± 2,3|151|6|623|7,7 x
 
 @@T 5
 Gerente general|Saber si la empresa crece y fijar metas anuales|KPI ventas totales y crecimiento % disponibles a diario; meta ≥ 4 KPI en el dashboard|E-07, E-13
@@ -356,108 +318,43 @@ Tableau Public|BI (mismos criterios)|Gráficos de alta calidad, gratis|Publica l
 Esquema estrella (Kimball)|Modelo DW. Rendimiento 30 %, facilidad 25 %, mantenibilidad 25 %, costo 20 %|Pocas uniones, rápido y fácil de entender|Algo de redundancia en dimensiones|Seleccionada: un solo proceso (ventas) y consultas simples
 Copo de nieve|Modelo DW (mismos criterios)|Menos redundancia|Más uniones y consultas más lentas|Descartada
 Data warehouse normalizado (Inmon)|Modelo DW (mismos criterios)|Visión corporativa integrada|Más tiempo de diseño; requiere data marts adicionales|Descartada para el alcance de 6 semanas
-Índice CLUSTERED COLUMNSTORE en hechos|Almacenamiento. Rendimiento 40 %, espacio 30 %, mantenimiento 30 %|E3: 7,7 a 11,5 veces más rápido; 6 MB vs 35 MB|Inserciones fila a fila más costosas (se carga por lotes)|Seleccionada (evidencia EXP-01)
+Índice CLUSTERED COLUMNSTORE en hechos|Almacenamiento. Rendimiento 40 %, espacio 30 %, mantenimiento 30 %|E3: 7,7 a 11,5 veces más rápido; 6 MB vs 35 MB|Inserciones fila a fila más costosas (se carga por lotes)|Seleccionada (prueba de viabilidad, 3.7)
 Índices no agrupados en el OLTP (rowstore)|Almacenamiento (mismos criterios)|Q4 105 veces más rápida|Q2-Q3 sin mejora; 2,3 veces más espacio|Descartada para reportes; se mantiene para consultas operativas
 Vistas indexadas|Almacenamiento (mismos criterios)|Respuesta instantánea para un reporte fijo|Una vista por reporte; bloquea cambios de esquema|Descartada
 ETL con procedimiento T-SQL|ETL. Facilidad 30 %, trazabilidad 30 %, rendimiento 20 %, costo 20 %|Versionable en Git, transaccional, bitácora propia|Menos visual|Seleccionada
 SSIS (Integration Services)|ETL (mismos criterios)|Diseñador visual y conectores|Herramienta y proyecto adicionales|Descartada para el avance
 Python / pandas|ETL (mismos criterios)|Flexible para datos no estructurados|Python no instalado; mueve datos fuera del motor|Se evaluará con Spark en la entrega final
 
-@@T 8
-Original (OLTP)|Generado con 02_generar_datos.sql v2, 15/11/2026; datos ficticios, sin licencia externa|200 001 ventas, 599 808 líneas, 5 000 clientes, 200 productos; ≈ 43 MB en SQL Server|13 validaciones PASA; 50 emails vacíos, 8 nombres sucios, 5 893 anuladas; RUC/email/teléfono = datos personales|Fuente del ETL y escenarios E1-E2|E-01
-Procesado (DW)|DW_Andina tras usp_ETL_CargarDW (ETL_Log ejecución 1); huella V0 2115345625 / -1892332103|582 141 hechos + 4 dimensiones; FactVentas 6,01 MB columnstore|5 reglas aplicadas; 0 datos personales; reconciliación S/ 0,00|Dashboard BI y escenario E3|E-02
-Prueba / sintético|HASHBYTES('MD5') del número de fila (determinista); estacionalidad 20 % en Nov-Dic; 3 % anuladas|Escala actual 600 000 líneas; Big Data: 10 000 / 100 000 / 600 000 (pendiente)|Distribución uniforme entre productos; no representa clientes reales|Experimento EXP-01/EXP-03; Spark en la final|E-03
 
-@@T 9
-Independiente|Escenario de almacenamiento (E1, E2, E3) y consulta (Q1-Q4)|E1 solo PK; E2 + 4 índices; E3 DW columnstore|Script 07 cambia un solo factor por fase|3 niveles x 4 consultas
-Dependiente|Tiempo de respuesta y páginas leídas|ms (cronómetro SYSDATETIME); lecturas lógicas de 8 KB; CPU ms|sys.dm_exec_requests antes y después de cada corrida|E3 ≥ 5 veces más rápido que E1 en Q1-Q3
-Control|Dataset, consultas, equipo, caché y repeticiones|Mismo dataset (huella V0); mismo SQL lógico; 1 corrida fría + 10 calientes|Checksum de resultados idéntico en los 3 escenarios|Desviación estándar < 20 % del promedio
-Negocio|Exactitud de la información|Diferencia OLTP − DW en S/|Reconciliación T-08|S/ 0,00
 
-@@T 10
-SQL Server|2025 Developer 17.0.1000.7 (RTM), instancia MSSQLSERVER, recuperación FULL (OLTP) y SIMPLE (DW)|Motor de base de datos, DW y experimento|sql/01-11
-SSMS / sqlcmd / ODBC|SSMS 22; sqlcmd 18 con -I (QUOTED_IDENTIFIER) y -C; ODBC Driver 18|Ejecución reproducible de scripts y evidencias|resultados/salida_*.txt
-Excel|Microsoft 365 (Office 16), tablas dinámicas, segmentadores, conexión ODBC|Dashboard BI y gráficos del experimento|dashboard/, scripts/*.ps1
-Sistema y hardware|Windows 11 Pro build 26200; PC DESKTOP-4FJH385; PowerShell 5.1; Git|Entorno de laboratorio; automatización de capturas y versionado|resultados/RUN-03_pipeline_final.log
 
-@@T 11
-EXP-01|BI|E1 OLTP base / E2 + 4 índices / E3 DW columnstore|600 000 líneas (v2)|Tiempo (ms), CPU, páginas leídas, checksum|Mismo dataset, consultas y equipo; 10 corridas en caliente|E3 ≥ 5 veces más rápido en Q1-Q3; E2 mejora Q4
-EXP-02|Big Data|PySpark con 1, 2 y 4 particiones (pendiente)|10 000 / 100 000 / 600 000 registros|Tiempo total, registros/s, uso de CPU|Mismas transformaciones y equipo|Tiempo casi lineal con el volumen (entrega final)
-EXP-03|Comparativo|Corrida en frío (DBCC DROPCLEANBUFFERS) vs caliente en E1-E3|600 000 líneas|Tiempo (ms) y páginas leídas|Mismas consultas; memoria vaciada antes de la 1.ª corrida|Frío más lento, en especial en E3
 
-@@T 12
-T-01|RF-01|usp_RegistrarVenta con 2 productos válidos|Venta guardada y respuesta OK|VentaID 200001, OK – PASA|E-06a
-T-02|RF-01|Venta con cantidad 999 999 (sin stock)|ROLLBACK; el total de ventas no cambia|200 001 = 200 001 – PASA|E-06a
-T-03|RF-02|Stock = 5 (< mínimo 20); sede 99 inexistente|1 alerta generada; error controlado|1 alerta; mensaje de error – PASA|resultados/
-T-04|RF-03|UPDATE del email del cliente 100|Registro en AuditoriaLog con antes/después|AuditID 1 con JSON – PASA|E-06b
-T-05|RF-03|Precio del producto +5 %|Precio antes y después auditado|3,36 → 3,53 – PASA|E-06b
-T-06|RF-06 / RNF-03|usr_analista lee Email|Permiso denegado|Error 230 SELECT denied – PASA|E-06c
-T-07|RF-06|usr_operativo intenta DELETE en Venta|Operación bloqueada|Permiso denegado – PASA|resultados/
-T-08|RF-04|Suma OLTP (emitidas) vs suma DW|Diferencia S/ 0,00|180 113 494,64 = 180 113 494,64 – PASA|E-06d
-T-09|RF-05|Filtro año 2025 + región Lima en el dashboard|KPI y 4 gráficos se recalculan|S/ 29 973 672 – PASA|E-07b
-T-10|RF-07 / RNF-04|BACKUP completo, diferencial, log + VERIFYONLY|3 backups y "backup set is valid"|Válido – PASA (restauración completa pendiente)|E-05
 
-@@T 13
-15/11/2026|Docente: el avance de la semana 6 es el INFORME DE PROYECTO FINAL hasta Inteligencia de Negocios y Visualización (no el Informe de Medición)|Se reorganizó el entregable a esta plantilla y se marcó lo pendiente para la entrega final|Aviso del aula virtual / este documento|Todo el equipo
-15/11/2026|Revisión interna del dashboard: con el filtro Lima solo aparecía el segmento BODEGA (sesgo del generador)|Generador v2: el segmento usa (n/10)%10, independiente de la región; nueva validación V13|E-07b antes/después; script 02 y 05|Yin
-15/11/2026|Revisión interna: el orden de los IDs de venta no estaba garantizado (dataset no 100 % reproducible)|Se agregó ORDER BY en las cargas y la huella V0; verificada en 2 generaciones|RUN-R: huellas idénticas|Pirsin
-15/11/2026|Prueba T-08 falló por ejecutarse antes del ETL|Se separó en 11_reconciliacion_etl.sql y se fijó el orden de ejecución|RUN-03: T-08 PASA|Gutiérrez
 
-@@T 14
-CHANNEL|Análisis del caso, requerimientos, diagrama ER, redacción del informe y PPT|diagramas/, informe/|Por confirmar|25 %
-YIN|Base OLTP, generador del dataset, validaciones y corrección del sesgo|sql/01, 02, 05|Por confirmar|25 %
-GUTIÉRREZ|Procedimientos, triggers, roles, respaldos y pruebas de seguridad|sql/03, 04, 08, 09, 11|Por confirmar|25 %
-PIRSIN|ETL, Data Warehouse, dashboard BI y experimento de rendimiento|sql/06, 07, 10; dashboard/; scripts/|Por confirmar|25 %
 
-@@T 15
-Claude (Anthropic), asistente de programación|Generar y depurar scripts SQL/PowerShell, diagramas, gráficos y borrador del informe|Código SQL, scripts de automatización, textos y tablas|Ejecución de todos los scripts; 8 pruebas T-01..T-08; reconciliación; revisión de capturas y cifras por el equipo|Solo datos ficticios; ningún dato personal real; el equipo revisa y asume la autoría
-No se utilizó otra herramienta de IA|—|—|—|—
 
-@@T 17
-Registros / tamaño|200 001 ventas; 599 808 líneas|582 141 hechos|Extraídas − rechazadas = cargadas (599 808 − 17 667)|Cuadra – PASA / E-06d
-Completitud|Email: 99,0 % (50 vacíos)|100 % (TieneEmail SI/NO)|Campos obligatorios 100 %|PASA / E-02
-Duplicados|0 RUC duplicados (0 %)|0 claves de negocio duplicadas|0|PASA / E-02
-Consistencia / validez|100 % totales = suma del detalle; 0 huérfanos; 0 fechas fuera de rango|100 %; importe DW = OLTP|100 %; diferencia S/ 0,00|PASA / E-02, E-06d
 
-@@T 18
-RUN-00|15/11/2026 00:01 – dataset v1|Pruebas T-01..T-08|Primera ejecución de pruebas|Exitoso – resultados/RUN-00_pruebas_dataset_v1.txt
-RUN-01|14/11/2026 23:59 – dataset v1|EXP-01 y EXP-03|1 fría + 10 calientes|Exitoso; valor atípico 16 306 ms en E1-Q1 (sin archivo; registrado en este informe)
-RUN-02|15/11/2026 00:02 – dataset v1|EXP-01 y EXP-03|1 fría + 10 calientes|Exitoso; E2 más lento que E1 en Q1-Q3 – resultados/RUN-02_experimento_dataset_v1.txt
-RUN-R|15/11/2026 00:12 – dataset v2|Reproducibilidad (2 generaciones)|Scripts 01 + 02 dos veces|Huellas idénticas 2115345625 / -1892332103
-RUN-03|15/11/2026 00:13 – dataset v2, v0.6-avance-s6|Pipeline completo, EXP-01 y EXP-03|1 fría + 10 calientes|Exitoso – resultados/RUN-03_pipeline_final.log y RUN-03_resultados_crudos.csv
 
-@@T 19
-EXP-01|BI|E1 OLTP base, 600 000 líneas|Q1-Q3: 266-457 ms; Q4: 51 ms|2,2-3,8 cons/s (analíticas)|CPU 989-1 871 ms; 4 720-4 818 páginas|E-09
-EXP-01|BI|E2 OLTP + 4 índices|Q1-Q3: 196-450 ms; Q4: 0,5 ms|2,2-5,1 cons/s|2 498-3 001 páginas; 79,7 MB (2,3x espacio)|E-09
-EXP-01|BI|E3 DW columnstore|Q1-Q3: 25-48 ms; Q4: 6,6 ms|20,9-39,3 cons/s|CPU 25-46 ms; 240-369 páginas; 6,01 MB|E-09
-EXP-02|Big Data|Pendiente (entrega final)|—|—|—|—
-EXP-03|Comparativo|Corrida en frío|E1: 147-685 ms; E2: 44-588 ms; E3: 108-1 566 ms|—|E3 frío más lento en Q1 y Q4 (carga de segmentos)|E-09
 
-@@T 20
-Solución BI|ETL con ≥ 3 reglas, esquema estrella ≥ 3 dimensiones, ≥ 4 visualizaciones, OLAP, E3 ≥ 5x|5 reglas, 4 dimensiones, 4 KPI + 4 gráficos + 4 filtros, E3 7,7-11,5x|Cumple|E-13
-Solución Big Data|PySpark ≥ 10 000 registros, ≥ 2 resultados analíticos|No iniciada (planificada S9-S11)|No cumple (pendiente)|E-14
-Integración / despliegue|Scripts reproducibles, pruebas PASA, repositorio versionado|Pipeline completo en 2,5 min; 10 pruebas PASA; Git local con etiqueta|Parcial (falta publicar repositorio y Spark)|RUN-03
 
-@@T 22
-OE-02|Reconciliación OLTP vs DW: diferencia S/ 0,00 (582 141 filas)|El ETL produce información confiable y trazable|Programar el ETL diario con SQL Server Agent|E-06d / 7.3 R1
-OE-03|Dashboard con 4 KPI, 4 gráficos y 4 filtros OLAP; campaña = 2,5x ventas/mes|La visualización revela decisiones accionables (stock de campaña, metas)|Migrar a Power BI y agregar alertas de meta|E-07 / 7.3 R4
-OE-04|E3 vs E1: 9,5-11,5x más rápido en Q1-Q3; 92-95 % menos páginas|El DW columnstore es la arquitectura correcta para reportes|Conectar todos los reportes al DW; carga incremental|E-09 / 7.3 R1, R3
-OE-01|10 pruebas PASA (ROLLBACK, auditoría, roles, backups)|La automatización y la seguridad cumplen los requisitos|Programar backups y probar restauración mensual|E-06a-c, E-05 / 7.3 R2
 
 @@T 23
 E-01|Dataset original y ficha de procedencia|resultados/salida_02_generar_datos.txt; sql/02_generar_datos.sql|v2 / 15-11-2026|Yin
 E-02|Dataset procesado y perfil de calidad|evidencias/E-02_validacion_ssms.png; resultados/salida_05_validacion_dataset.txt|v2 / 15-11-2026|Yin
 E-03|Datos de prueba/sintéticos y método|sql/02_generar_datos.sql (método HASHBYTES)|v2 / 15-11-2026|Yin
-E-04|Diseño experimental y configuraciones|sql/07_experimento.sql; capítulo IV|v0.6 / 15-11-2026|Pirsin
+E-04|Diseño experimental y configuraciones|Pendiente (capítulo IV, entrega final)|Entrega final|Pirsin
 E-05|Diagrama de arquitectura y esquema de datos|diagramas/E-05a, E-05b, E-05c; evidencias/E-05_backups_ssms.png|v0.6 / 15-11-2026|Channel
 E-06|SQL/NoSQL/Spark, scripts y notebook|sql/01 a 11; sql/demo/; evidencias/E-06a a E-06d|v0.6 / 15-11-2026|Gutiérrez
 E-07|Resultados de la solución BI|dashboard/Dashboard_Andina.xlsx; evidencias/E-07, E-07b, E-07c|v0.6 / 15-11-2026|Pirsin
 E-08|Resultados de la solución Big Data|Pendiente (notebook PySpark)|Entrega final|Gutiérrez
-E-09|Comparación de escenarios y métricas|evidencias/E-09, E-09b, E-09c; resultados/RUN-03_resultados_crudos.csv|v0.6 / 15-11-2026|Pirsin
+E-09|Comparación de escenarios y métricas|evidencias/E-09b (prueba de viabilidad, sección 3.7); resultados/RUN-03_resultados_crudos.csv|v0.6 / 15-11-2026|Pirsin
 E-10|Logs, capturas y visualizaciones|resultados/*.txt, *.log; evidencias/*.png|v0.6 / 15-11-2026|Todos
-E-11|Conclusiones, recomendaciones y decisiones|Capítulo VII de este informe|v0.6 / 15-11-2026|Channel
-E-12|Retroalimentación y mejoras implementadas|Sección 5.5; resultados/RUN-02 vs RUN-03|v0.6 / 15-11-2026|Todos
+E-11|Conclusiones, recomendaciones y decisiones|Pendiente (capítulo VII, entrega final)|Entrega final|Channel
+E-12|Retroalimentación y mejoras implementadas|Secciones 1.6 y 3.7 (mejoras del avance); detalle en 5.5 en la entrega final|v0.6 / 15-11-2026|Todos
 E-13|Solución BI funcional / demostración|dashboard/Dashboard_Andina.xlsx (demostración en vivo)|v0.6 / 15-11-2026|Pirsin
 E-14|Solución Big Data funcional / demostración|Pendiente|Entrega final|Gutiérrez
-E-15|Aportes individuales y defensa|Sección 5.6; historial Git (git log --oneline)|v0.6 / 15-11-2026|Todos
-E-16|Declaración de uso responsable de IA|Sección 5.7 y declaración final|v0.6 / 15-11-2026|Todos
+E-15|Aportes individuales y defensa|Portada (25 % por integrante); historial Git (git log --oneline)|v0.6 / 15-11-2026|Todos
+E-16|Declaración de uso responsable de IA|Declaración final (anexo de este informe)|v0.6 / 15-11-2026|Todos
+
+@@DT 8 9 10 11 12 13 14 15 17 18 19 20 22
+-

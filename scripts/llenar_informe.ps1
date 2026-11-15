@@ -84,6 +84,8 @@ function InsertAfter($para, $textLines) {
 # ---------- 1) tablas existentes ----------
 foreach ($b in ($blocks | ? Kind -eq 'T')) { FillTable $T[[int]$b.Key] $b.Lines; Write-Host "Tabla $($b.Key) llena ($($b.Lines.Count) filas)" }
 
+# tablas de capitulos que aun no corresponden (se borran: quedan para la entrega final)
+foreach ($b in ($blocks | ? Kind -eq 'DT')) { foreach ($k in $b.Key.Split(' ')) { if ($k -match '^\d+$') { $T[[int]$k].Delete(); Write-Host "Tabla $k borrada" } } }
 # ---------- 2) portada, encabezado y pie ----------
 $gut = 'GUTI' + (U 0xC9) + 'RREZ'
 $nombres = @('CHANNEL', 'YIN', $gut, 'PIRSIN')
