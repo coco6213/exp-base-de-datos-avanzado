@@ -1,0 +1,73 @@
+﻿============================================================
+ DATOS FICTICIOS DEL PROYECTO – Distribuidora Andina Comercial S.A.C.
+ Grupo: Channel, Yin, Gutiérrez, Pirsin
+============================================================
+
+¿QUÉ SON ESTOS DATOS?
+Son datos INVENTADOS (simulados). La empresa del caso no existe, así que
+generamos ventas de prueba con el script sql/02_generar_datos.sql.
+Si se vuelve a ejecutar, salen EXACTAMENTE los mismos datos.
+TODAS las consultas, el dashboard, los gráficos y la prueba de viabilidad
+del informe se hicieron con ESTOS datos.
+
+Período: enero 2023 a diciembre 2025 · Sedes: Lima, Arequipa y Trujillo.
+Los archivos .csv se abren con doble clic en Excel (separados por punto y coma).
+
+
+CARPETAS
+------------------------------------------------------------
+1_Base_dia_a_dia (OLTP)      -> Base de datos "DistribuidoraAndina"
+   Es donde se registran las ventas todos los días.
+   Region.csv ........ 3 regiones
+   Sede.csv .......... 6 almacenes
+   Categoria.csv ..... 8 categorías de productos
+   Producto.csv ...... 200 productos
+   Cliente.csv ....... 5 000 clientes (bodegas, minimarkets, mayoristas)
+   Vendedor.csv ...... 30 vendedores
+   Inventario.csv .... stock de cada producto en cada sede (1 200 filas)
+   Venta.csv ......... 200 002 ventas (200 000 simuladas + 2 de las pruebas)
+   DetalleVenta.csv .. 599 809 líneas (qué productos tiene cada venta)
+   AuditoriaLog.csv .. cambios registrados por los triggers
+   AlertaStock.csv ... alertas de stock bajo
+
+2_Data_Warehouse (DW)        -> Base de datos "DW_Andina"
+   Es la copia LIMPIA y ordenada para analizar (esquema estrella).
+   FactVentas.csv .... 582 141 líneas de venta ya limpias (sin anuladas)
+   DimTiempo.csv ..... calendario (año, mes, trimestre, campaña)
+   DimProducto.csv ... productos con su categoría
+   DimCliente.csv .... clientes SIN datos personales (sin RUC, email ni teléfono)
+   DimSede.csv ....... sedes con su región
+   ETL_Log.csv ....... registro de la carga: 599 808 extraídas,
+                       17 667 rechazadas, 582 141 cargadas
+   vw_Dashboard.csv .. resumen que usa el dashboard de Excel (112 062 filas)
+
+3_Prueba_de_viabilidad       -> Base de datos "LabExperimento"
+   Consulta.csv ...... las 4 consultas medidas (Q1 a Q4) en cada escenario
+   Resultado.csv ..... los 132 tiempos medidos (ms, CPU y páginas leídas)
+   Almacenamiento.csv  espacio en disco de cada escenario
+
+4_Resultados_de_las_consultas -> LO QUE SALIÓ al ejecutar cada script
+   01_validacion_de_los_datos.txt ............. 13 pruebas de calidad: todas PASA
+   02_pruebas_procedimientos_triggers_roles.txt  ventas, ROLLBACK, auditoría, roles
+   03_carga_ETL_al_data_warehouse.txt ......... cuántas filas cargó el ETL
+   04_reconciliacion_OLTP_vs_DW.txt ........... S/ 180 113 494,64 en ambos (cuadra)
+   05_respaldos_backup.txt .................... backups completo, diferencial y log
+   06_prueba_de_viabilidad_tiempos.txt ........ el Data Warehouse ~10 veces más rápido
+   07_indicadores_del_dashboard.txt ........... ventas por año, región y top productos
+
+
+RESULTADOS PRINCIPALES (lo que salió con estos datos)
+------------------------------------------------------------
+- Ventas totales 2023-2025: S/ 180,1 millones (7,28 millones de unidades)
+- Lima 50 %, Arequipa 30 %, Trujillo 20 %
+- Noviembre y diciembre venden 2,5 veces más que el resto del año
+- Ventas casi planas: +0,03 % en 2024 y -0,41 % en 2025
+- Producto más vendido: PRODUCTO 089 (S/ 1,89 millones)
+- El Data Warehouse respondió los reportes entre 7,7 y 11,5 veces más rápido
+
+
+¿DÓNDE ESTÁN LOS DATOS ORIGINALES?
+------------------------------------------------------------
+En SQL Server de esta PC (abrir SSMS > Bases de datos):
+DistribuidoraAndina, DW_Andina y LabExperimento.
+Estos CSV son una copia. Para volver a crearlos: scripts/exportar_datos.ps1

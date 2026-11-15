@@ -1,0 +1,17 @@
+﻿Changed database context to 'master'.
+Processed 5280 pages for database 'DistribuidoraAndina', file 'DistribuidoraAndina' on file 1.
+Processed 2 pages for database 'DistribuidoraAndina', file 'DistribuidoraAndina_log' on file 1.
+BACKUP DATABASE successfully processed 5282 pages in 0.287 seconds (143.769 MB/sec).
+Processed 112 pages for database 'DistribuidoraAndina', file 'DistribuidoraAndina' on file 1.
+Processed 2 pages for database 'DistribuidoraAndina', file 'DistribuidoraAndina_log' on file 1.
+BACKUP DATABASE WITH DIFFERENTIAL successfully processed 114 pages in 0.031 seconds (28.603 MB/sec).
+Processed 8 pages for database 'DistribuidoraAndina', file 'DistribuidoraAndina_log' on file 1.
+BACKUP LOG successfully processed 8 pages in 0.007 seconds (8.928 MB/sec).
+The backup set on file 1 is valid.
+BaseDatos|Tipo|Inicio|Fin|TamanoMB|ComprimidoMB|Archivo
+---------|----|------|---|--------|------------|-------
+DistribuidoraAndina|LOG|2026-11-15 00:13:48.000|2026-11-15 00:13:48.000|.08|.03|C:\Program Files\Microsoft SQL Server\MSSQL17.MSSQLSERVER\MSSQL\Backup\DistribuidoraAndina_LOG.trn
+DistribuidoraAndina|DIFERENCIAL|2026-11-15 00:13:48.000|2026-11-15 00:13:48.000|2.08|.12|C:\Program Files\Microsoft SQL Server\MSSQL17.MSSQLSERVER\MSSQL\Backup\DistribuidoraAndina_DIFF.bak
+DistribuidoraAndina|COMPLETO|2026-11-15 00:13:47.000|2026-11-15 00:13:48.000|43.08|13.55|C:\Program Files\Microsoft SQL Server\MSSQL17.MSSQLSERVER\MSSQL\Backup\DistribuidoraAndina_FULL.bak
+
+(3 rows affected)

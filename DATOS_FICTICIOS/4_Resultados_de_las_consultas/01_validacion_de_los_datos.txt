@@ -1,0 +1,34 @@
+﻿Changed database context to 'DistribuidoraAndina'.
+Prueba|Tabla|Filas
+------|-----|-----
+V1 Volumen|Venta|200000
+V1 Volumen|DetalleVenta|599806
+V1 Volumen|Cliente|5000
+V1 Volumen|Producto|200
+Prueba|Problemas|Criterio|Resultado
+------|---------|--------|---------
+V2 Ventas sin detalle|0|Debe ser 0|PASA
+V3 Detalle huerfano (sin venta)|0|Debe ser 0|PASA
+V4 RUC duplicados|0|Debe ser 0|PASA
+V5 Total cabecera <> suma detalle|0|Debe ser 0|PASA
+V6 Fechas fuera de rango 2023-2025|0|Debe ser 0|PASA
+V7 Cantidades o precios invalidos|0|Debe ser 0|PASA
+V8 Cliente de otra region que la sede|0|Debe ser 0|PASA
+V13 Combinaciones region x segmento vacias|0|Debe ser 0|PASA
+Hallazgo|Cantidad|Tratamiento
+--------|--------|-----------
+V9 Clientes sin email|50|Regla ETL R4
+V10 Productos con nombre sucio|8|Regla ETL R1
+V11 Ventas anuladas|5893|Regla ETL R2
+Prueba|HuellaVenta|HuellaDetalle|HuellaCliente
+------|-----------|-------------|-------------
+V0 Huella dataset|2115345625|-1892332103|20468224
+Region|Ventas|Porcentaje
+------|------|----------
+LIMA|100532|50.27
+AREQUIPA|59622|29.81
+TRUJILLO|39846|19.92
+Periodo|Ventas|VentasPromedioPorMes
+-------|------|--------------------
+Nov-Dic (campana)|66776|11129
+Resto del anio|133224|4440

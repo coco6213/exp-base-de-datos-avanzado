@@ -1,0 +1,6 @@
+﻿Escenario;Objeto;Filas;EspacioMB
+E1;Venta;200001;10.13
+E1;DetalleVenta;599808;25.07
+E2;Venta;200001;23.09
+E2;DetalleVenta;599808;56.59
+E3;FactVentas;582141;6.01
