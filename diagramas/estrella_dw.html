@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Esquema estrella</title>
+<style>
+  body{margin:0;background:#fff;font-family:Segoe UI,Arial,sans-serif;}
+  #c{position:relative;width:1200px;height:760px;}
+  h1{position:absolute;left:24px;top:8px;margin:0;font-size:22px;color:#1F3A5A}
+  .t{position:absolute;width:250px;border:2px solid #1F5A8B;border-radius:6px;background:#fff;font-size:13px;box-shadow:2px 2px 0 #dfe7ef}
+  .t b{display:block;background:#1F5A8B;color:#fff;padding:6px 8px;font-size:15px}
+  .t.f{border-color:#B8860B;width:280px}.t.f b{background:#B8860B}
+  .t div{padding:3px 8px;border-top:1px solid #eef2f6}
+  .pk{font-weight:700}.pk:before{content:"PK ";color:#C08A00}
+  .fk:before{content:"FK ";color:#1F7A3A;font-weight:700}
+  .m:before{content:"Σ ";color:#B8860B;font-weight:700}
+  .note{color:#666;font-style:italic}
+  svg{position:absolute;left:0;top:0}
+  .leg{position:absolute;left:24px;bottom:10px;font-size:13px;color:#333;width:1150px}
+</style></head><body><div id="c">
+<h1>Modelo dimensional (esquema estrella) – Data Warehouse DW_Andina</h1>
+<svg width="1200" height="760" id="s"></svg>
+<div class="t" id="T" style="left:40px;top:80px"><b>DimTiempo  (¿cuándo?)</b><div class="pk">TiempoKey (AAAAMMDD)</div><div>Fecha</div><div>Anio / Trimestre / Mes</div><div>NombreMes / DiaSemana</div><div>EsCampana (Nov-Dic)</div></div>
+<div class="t" id="P" style="left:910px;top:80px"><b>DimProducto  (¿qué?)</b><div class="pk">ProductoKey</div><div>ProductoID (origen)</div><div>Nombre (limpio, R1)</div><div>Categoria</div><div>PrecioLista</div></div>
+<div class="t" id="C" style="left:40px;top:460px"><b>DimCliente  (¿quién?)</b><div class="pk">ClienteKey</div><div>ClienteID (origen)</div><div>RazonSocial</div><div>Segmento / Region</div><div>TieneEmail (SI/NO, R4)</div><div class="note">sin RUC, email ni teléfono</div></div>
+<div class="t" id="S" style="left:910px;top:460px"><b>DimSede  (¿dónde?)</b><div class="pk">SedeKey</div><div>SedeID (origen)</div><div>Sede</div><div>Region</div></div>
+<div class="t f" id="F" style="left:460px;top:250px"><b>FactVentas  (hechos)</b><div class="fk">TiempoKey</div><div class="fk">ProductoKey</div><div class="fk">ClienteKey</div><div class="fk">SedeKey</div><div>VentaID (trazabilidad)</div><div class="m">Cantidad</div><div class="m">PrecioUnitario</div><div class="m">Importe</div><div class="note">Grano: 1 fila = 1 producto vendido en 1 venta · 582 141 filas · índice COLUMNSTORE</div></div>
+<div class="leg">La tabla de hechos guarda los números que se suman (Σ). Las dimensiones guardan las "preguntas" con las que se filtra: cuándo, qué, quién y dónde. Cada dimensión se une a los hechos con una relación 1 —&lt; N.</div>
+</div>
+<script>
+const s=document.getElementById('s'), c=document.getElementById('c').getBoundingClientRect();
+function b(id){const r=document.getElementById(id).getBoundingClientRect();return {l:r.left-c.left,t:r.top-c.top,r:r.right-c.left,bt:r.bottom-c.top,cx:(r.left+r.right)/2-c.left,cy:(r.top+r.bottom)/2-c.top};}
+const F=b('F');
+[['T',F.l,F.t+60],['C',F.l,F.bt-60],['P',F.r,F.t+60],['S',F.r,F.bt-60]].forEach(([id,x2,y2])=>{const D=b(id);
+ const x1=D.l<F.l?D.r:D.l, y1=D.cy;
+ s.insertAdjacentHTML('beforeend',`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#555" stroke-width="2.5"/>
+ <text x="${x1+(x1<x2?8:-18)}" y="${y1-8}" font-weight="700" font-size="14">1</text><text x="${x2+(x1<x2?-18:8)}" y="${y2-8}" font-weight="700" font-size="14">N</text>`);});
+</script></body></html>

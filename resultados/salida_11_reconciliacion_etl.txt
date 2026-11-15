@@ -1,0 +1,7 @@
+﻿Changed database context to 'DistribuidoraAndina'.
+--- T-08: Reconciliacion ETL (origen vs Data Warehouse) ---
+ImporteOLTP|ImporteDW|T08
+-----------|---------|---
+180113494.64|180113494.64|PASA: cuadra al centimo
+
+(1 rows affected)

@@ -1,0 +1,27 @@
+﻿Changed database context to 'master'.
+Changed database context to 'DistribuidoraAndina'.
+Rol|Permiso|Estado|Objeto|Columna
+---|-------|------|------|-------
+rol_administrador|CONTROL|GRANT|DATABASE|
+rol_analista|SELECT|DENY|AuditoriaLog|
+rol_analista|SELECT|GRANT|Categoria|
+rol_analista|SELECT|GRANT|Cliente|ClienteID
+rol_analista|SELECT|DENY|Cliente|Email
+rol_analista|SELECT|GRANT|Cliente|RazonSocial
+rol_analista|SELECT|GRANT|Cliente|RegionID
+rol_analista|SELECT|DENY|Cliente|RUC
+rol_analista|SELECT|GRANT|Cliente|Segmento
+rol_analista|SELECT|DENY|Cliente|Telefono
+rol_analista|SELECT|GRANT|DetalleVenta|
+rol_analista|SELECT|GRANT|Inventario|
+rol_analista|SELECT|GRANT|Producto|
+rol_analista|SELECT|GRANT|Region|
+rol_analista|SELECT|GRANT|Sede|
+rol_analista|SELECT|GRANT|Venta|
+rol_operativo|SELECT|GRANT|Producto|
+rol_operativo|DELETE|DENY|SCHEMA|
+rol_operativo|EXECUTE|GRANT|usp_ActualizarInventario|
+rol_operativo|EXECUTE|GRANT|usp_GenerarAlertasStock|
+rol_operativo|EXECUTE|GRANT|usp_RegistrarVenta|
+
+(21 rows affected)

@@ -1,0 +1,11 @@
+﻿Inicio pipeline final (dataset v2): 2026-11-15T00:13:27
+05_validacion_dataset : 2.3 s (exit 0)
+03_procedimientos_triggers : 0.1 s (exit 0)
+04_seguridad_roles : 0.3 s (exit 0)
+08_pruebas_calidad_seguridad : 0.5 s (exit 0)
+06_dw_etl : 16.1 s (exit 0)
+11_reconciliacion_etl : 0.4 s (exit 0)
+09_politica_respaldo : 0.9 s (exit 0)
+07_experimento : 34.2 s (exit 0)
+10_vista_dashboard : 47.6 s (exit 0)
+Fin: 2026-11-15T00:15:10

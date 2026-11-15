@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Arquitectura</title>
+<style>
+  body{margin:0;background:#fff;font-family:Segoe UI,Arial,sans-serif;}
+  #c{position:relative;width:1500px;height:780px;}
+  h1{position:absolute;left:24px;top:8px;margin:0;font-size:22px;color:#1F3A5A}
+  .zone{position:absolute;border:2px dashed #9fb3c8;border-radius:10px;}
+  .zone span{position:absolute;top:-12px;left:14px;background:#fff;padding:0 6px;font-weight:700;font-size:14px;color:#1F3A5A}
+  .zone.fut{border-color:#c9a26b}.zone.fut span{color:#8B5A1F}
+  .n{position:absolute;width:220px;border-radius:8px;border:2px solid #1F5A8B;background:#F2F7FC;padding:8px 10px;font-size:13px;box-sizing:border-box}
+  .n b{display:block;font-size:14.5px;color:#1F3A5A;margin-bottom:3px}
+  .n.g{border-color:#1F7A3A;background:#F1FAF3}.n.g b{color:#1F5A2E}
+  .n.o{border-color:#B8860B;background:#FFF8E6}.n.o b{color:#7A5A00}
+  .n.r{border-color:#8B3A1F;background:#FCF2EE}.n.r b{color:#8B3A1F}
+  .n.f{border-style:dashed;border-color:#c9a26b;background:#fffaf2}.n.f b{color:#8B5A1F}
+  svg{position:absolute;left:0;top:0}
+  .leg{position:absolute;left:24px;bottom:10px;font-size:13px;color:#333}
+</style></head><body><div id="c">
+<h1>Figura 1. Arquitectura integrada DataShield 360 – Distribuidora Andina Comercial S.A.C.</h1>
+<svg width="1500" height="780"><defs><marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#444"/></marker></defs><g id="g"></g></svg>
+
+<div class="zone" style="left:20px;top:60px;width:300px;height:560px"><span>1. FUENTES (día a día)</span></div>
+<div class="zone" style="left:350px;top:60px;width:300px;height:560px"><span>2. BASE TRANSACCIONAL (OLTP)</span></div>
+<div class="zone" style="left:680px;top:60px;width:500px;height:560px"><span>3. SOLUCIÓN BI (implementada en este avance)</span></div>
+<div class="zone" style="left:1210px;top:60px;width:270px;height:560px"><span>4. CONSUMO</span></div>
+<div class="zone fut" style="left:350px;top:640px;width:830px;height:100px"><span>5. SOLUCIÓN BIG DATA + NoSQL (entrega final, semanas 7-16)</span></div>
+
+<div class="n" id="u1" style="left:60px;top:100px"><b>Vendedores / sedes</b>Registran ventas en Lima, Arequipa y Trujillo</div>
+<div class="n" id="u2" style="left:60px;top:230px"><b>Almacén</b>Ingresos y salidas de stock</div>
+<div class="n" id="u3" style="left:60px;top:360px"><b>Dataset simulado</b>200 000 ventas · 599 806 líneas · 2023-2025 (script 02, reproducible)</div>
+
+<div class="n" id="o1" style="left:390px;top:100px"><b>DistribuidoraAndina</b>SQL Server 2025 · 11 tablas · llaves y reglas CHECK</div>
+<div class="n g" id="o2" style="left:390px;top:230px"><b>Automatización</b>3 procedimientos (venta, stock, alertas) con TRY-CATCH y COMMIT/ROLLBACK</div>
+<div class="n r" id="o3" style="left:390px;top:370px"><b>Seguridad</b>2 triggers de auditoría · 3 roles · backups completo / diferencial / log</div>
+
+<div class="n o" id="e1" style="left:710px;top:100px"><b>ETL usp_ETL_CargarDW</b>Extrae → limpia (5 reglas R1-R5) → carga · bitácora ETL_Log</div>
+<div class="n o" id="e2" style="left:940px;top:100px"><b>DW_Andina</b>Esquema estrella · FactVentas + 4 dimensiones · COLUMNSTORE</div>
+<div class="n o" id="e3" style="left:940px;top:260px"><b>vw_Dashboard</b>Vista resumida por mes, producto, sede y segmento (112 062 filas)</div>
+<div class="n" id="e4" style="left:710px;top:440px"><b>LabExperimento</b>Mide tiempo, CPU y lecturas: OLTP (E1, E2) vs DW (E3)</div>
+<div class="n g" id="e5" style="left:710px;top:260px"><b>Control de calidad</b>13 validaciones del dataset + reconciliación OLTP = DW</div>
+
+<div class="n" id="c1" style="left:1235px;top:150px"><b>Dashboard Excel</b>4 KPIs · 4 gráficos · 4 filtros OLAP (año, región, segmento, temporada)</div>
+<div class="n" id="c2" style="left:1235px;top:330px"><b>Gerencia</b>Decide stock para campaña, metas por región y productos a impulsar</div>
+
+<div class="n f" id="f1" style="left:400px;top:670px;width:230px"><b>MongoDB</b>comentarios de clientes y rutas (JSON)</div>
+<div class="n f" id="f2" style="left:680px;top:670px;width:230px"><b>PySpark</b>≥ 10 000 registros · ranking y estacionalidad</div>
+<div class="n f" id="f3" style="left:940px;top:670px;width:220px"><b>Integración</b>resultados Spark al dashboard</div>
+
+<div class="leg">Flechas = flujo de datos. Verde = automatización y calidad · Rojo = seguridad · Dorado = Data Warehouse · Punteado = componente planificado para la entrega final.</div>
+</div>
+<script>
+const g=document.getElementById('g'), c=document.getElementById('c').getBoundingClientRect();
+function b(id){const r=document.getElementById(id).getBoundingClientRect();return {l:r.left-c.left,t:r.top-c.top,r:r.right-c.left,bt:r.bottom-c.top,cx:(r.left+r.right)/2-c.left,cy:(r.top+r.bottom)/2-c.top};}
+function ar(a,z,sa,sz,dash){const A=b(a),Z=b(z);const p=(X,s)=>s=='r'?[X.r,X.cy]:s=='l'?[X.l,X.cy]:s=='t'?[X.cx,X.t]:[X.cx,X.bt];
+ const [x1,y1]=p(A,sa),[x2,y2]=p(Z,sz);
+ g.insertAdjacentHTML('beforeend',`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#444" stroke-width="2.2" marker-end="url(#a)" ${dash?'stroke-dasharray="6 5"':''}/>`);}
+ar('u1','o1','r','l'); ar('u2','o2','r','l'); ar('u3','o1','r','l');
+ar('o1','e1','r','l'); ar('e1','e2','r','l'); ar('e2','e3','b','t'); ar('e3','c1','r','l'); ar('c1','c2','b','t');
+ar('o1','e4','r','l');
+ar('o2','o1','t','b'); ar('o3','o2','t','b');
+ar('e5','e1','t','b');
+ar('f1','f2','r','l',true); ar('f2','f3','r','l',true); ar('f3','c2','r','b',true);
+</script></body></html>

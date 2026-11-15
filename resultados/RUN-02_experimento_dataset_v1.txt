@@ -1,0 +1,82 @@
+﻿Changed database context to 'master'.
+Changed database context to 'LabExperimento'.
+
+(4 rows affected)
+
+(4 rows affected)
+
+(4 rows affected)
+
+(4 rows affected)
+Changed database context to 'DistribuidoraAndina'.
+
+(2 rows affected)
+Changed database context to 'DistribuidoraAndina'.
+Warning: Null value is eliminated by an aggregate or other SET operation.
+
+(2 rows affected)
+Changed database context to 'DW_Andina'.
+
+(1 rows affected)
+Changed database context to 'LabExperimento'.
+Escenario|ConsultaID|TiempoProm_ms|DesvEst_ms|TiempoMin_ms|TiempoMax_ms|CpuProm_ms|LecturasProm|Filas
+---------|----------|-------------|----------|------------|------------|----------|------------|-----
+E1|Q1|172.64|49.89|107.66|220.11|899|4803|36
+E2|Q1|216.82|24.29|184.91|266.56|805|2500|36
+E3|Q1|22.98|6.60|16.07|38.50|23|296|36
+E1|Q2|296.72|13.40|282.55|318.82|1464|4706|10
+E2|Q2|372.38|56.23|326.04|525.94|1774|2942|10
+E3|Q2|29.41|5.65|22.60|41.12|28|240|10
+E1|Q3|410.06|23.78|389.55|475.13|1896|4760|26
+E2|Q3|459.53|21.34|419.54|498.73|2030|3001|26
+E3|Q3|50.28|18.14|40.53|100.31|48|371|26
+E1|Q4|48.71|3.98|45.63|56.62|81|4638|13
+E2|Q4|.62|1.37|.00|4.01|0|42|13
+E3|Q4|5.00|4.14|.00|9.61|4|623|13
+
+(12 rows affected)
+Escenario|ConsultaID|TiempoFrio_ms|CpuMs|Lecturas
+---------|----------|-------------|-----|--------
+E1|Q1|217.632|925|5026
+E2|Q1|389.450|928|2740
+E3|Q1|1181.523|1161|2237
+E1|Q2|370.092|1462|4900
+E2|Q2|406.685|1710|3130
+E3|Q2|758.820|729|1385
+E1|Q3|499.649|1837|5187
+E2|Q3|582.840|2062|3438
+E3|Q3|133.366|96|1086
+E1|Q4|153.236|161|4819
+E2|Q4|40.146|28|248
+E3|Q4|1548.968|1506|4480
+
+(12 rows affected)
+ConsultaID|Escenario|E1_ms|Escenario_ms|MejoraTiempo_pct|MenosLecturas_pct|VecesMasRapido
+----------|---------|-----|------------|----------------|-----------------|--------------
+Q1|E2|172.64|216.82|-25.6|47.9|.8
+Q1|E3|172.64|22.98|86.7|93.8|7.5
+Q2|E2|296.72|372.38|-25.5|37.5|.8
+Q2|E3|296.72|29.41|90.1|94.9|10.1
+Q3|E2|410.06|459.53|-12.1|37.0|.9
+Q3|E3|410.06|50.28|87.7|92.2|8.2
+Q4|E2|48.71|.62|98.7|99.1|78.9
+Q4|E3|48.71|5.00|89.7|86.6|9.7
+
+(8 rows affected)
+ConsultaID|ResultadosDistintos|Validacion
+----------|-------------------|----------
+Q1|1|CONSISTENTE
+Q2|1|CONSISTENTE
+Q3|1|CONSISTENTE
+Q4|1|CONSISTENTE
+
+(4 rows affected)
+Escenario|Objeto|Filas|EspacioMB
+---------|------|-----|---------
+E1|Venta|200001|10.13
+E1|DetalleVenta|599808|25.07
+E2|Venta|200001|23.09
+E2|DetalleVenta|599808|56.59
+E3|FactVentas|1164276|6.01
+
+(5 rows affected)
