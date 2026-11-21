@@ -77,7 +77,8 @@ $s = $pres.Slides.Add(1, 12)
 [void](Txt $s 60 310 840 30 "Caso: Distribuidora Andina Comercial S.A.C. (Lima, Arequipa y Trujillo)" 15 $WHITE)
 [void](Txt $s 60 345 840 24 "INTEGRANTES" 13 (C 232 200 120) -bold)
 [void](Txt $s 60 370 840 70 ("Jean Pool Alexander Vasquez Valderrama  ·  Channel Jennifer Oblea Ukuncham`rGutiérrez  ·  David Dominguez Pirazaman") 16 $WHITE)
-[void](Txt $s 60 450 840 26 "Docente: Ramirez Visa Adan Elvis  ·  Período 2026-2" 14 (C 190 210 230))
+[void](Txt $s 60 440 840 24 "Docente: Ramirez Visa Adan Elvis  ·  Período 2026-2" 14 (C 190 210 230))
+[void](Txt $s 60 468 840 24 "Repositorio: github.com/coco6213/exp-base-de-datos-avanzado" 14 (C 232 200 120))
 $s.NotesPage.Shapes.Placeholders.Item(2).TextFrame.TextRange.Text = 'Buenos días. Somos Jean Pool Vasquez, Channel Oblea, Gutiérrez y David Dominguez. Presentamos el avance de la semana 6 del proyecto DataShield 360: llegamos hasta Inteligencia de Negocios y Visualización de Datos. La parte de Big Data y MongoDB es para la entrega final.'
 
 # ---------------- 2. AGENDA ----------------
@@ -175,17 +176,18 @@ for ($i = 0; $i -lt $rows.Count; $i++) { for ($j = 0; $j -lt 3; $j++) {
   if ($i -eq 0) { $cell.Shape.Fill.ForeColor.RGB = $NAVY; $tr.Font.Color.RGB = $WHITE; $tr.Font.Bold = -1 }
   else { $cell.Shape.Fill.ForeColor.RGB = $(if ($i -eq 1) { C 226 240 230 } elseif ($i % 2) { $WHITE } else { $LIGHT }); $tr.Font.Color.RGB = $TEXT } } }
 # ---------------- 15. CONCLUSIONES ----------------
-$s = Slide 'Cierre' 'Conclusiones y próximos pasos' 'La solución BI funciona, está probada y es la base para la parte de Big Data.' 'Para cerrar: el Data Warehouse fue la decisión correcta, el ETL entrega datos confiables, el dashboard muestra decisiones claras y la base ahora es segura. En la entrega final agregaremos MongoDB y Spark sobre esta misma base. Gracias.'
+$s = Slide 'Cierre' 'Conclusiones y próximos pasos' 'La solución BI funciona, está probada y es la base para la parte de Big Data.' 'Para cerrar: el Data Warehouse fue la decisión correcta, el ETL entrega datos confiables, el dashboard muestra decisiones claras y la base ahora es segura. En la entrega final agregaremos MongoDB y Spark sobre esta misma base. Todo el código, los datos y el informe están en nuestro repositorio de GitHub. Gracias.'
 Stat $s 40 92 205 112 '~10 veces' 'reportes más rápidos con el Data Warehouse' $BLUE
 Stat $s 260 92 205 112 'S/ 0,00' 'diferencia: el ETL cuadra al céntimo' $GREEN
 Stat $s 480 92 205 112 '10 / 10' 'pruebas de funcionamiento y seguridad aprobadas' $GREEN
 Stat $s 700 92 220 112 '2,5 veces' 'más ventas en la campaña de fin de año' $GOLD
 [void](Bullets $s 40 222 430 214 @('Separar la base del día a día del Data Warehouse fue la decisión correcta', 'Los índices normales no resuelven los reportes', 'El dashboard muestra decisiones claras para la gerencia', 'La base es segura: transacciones, auditoría, roles y respaldos') 15)
-Card $s 490 222 430 214 'Próximos pasos' ("• MongoDB con operaciones CRUD`r• PySpark: ranking y estacionalidad`r• Integrar Spark al dashboard`r• Experimento completo e Informe de Medición`r• Publicar el repositorio para el docente") $GOLD
+Card $s 490 222 430 214 'Próximos pasos' ("• MongoDB con operaciones CRUD`r• PySpark: ranking y estacionalidad`r• Integrar Spark al dashboard`r• Experimento completo e Informe de Medición`r• Código y datos: github.com/coco6213/exp-base-de-datos-avanzado") $GOLD
 
 $out = if ($Salida) { $Salida } else { Join-Path $root 'informe\AVANCE-EXP-DEDATOSAVANZADO.pptx' }
 if (Test-Path $out) { Remove-Item $out -Force }
 $pres.SaveAs($out)
+$pres.SaveAs(($out -replace '\.pptx$', '_presentacion.pdf'), 32)
 
 "Diapositivas: $($pres.Slides.Count) -> $out"
 $pres.Close()
