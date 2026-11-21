@@ -107,7 +107,7 @@ Stat $s 570 222 350 110 '200 000 ventas' '3 años de operación (2023-2025) en n
 # ---------------- 4. OBJETIVOS Y ALCANCE ----------------
 $s = Slide 'Capítulo I · Objetivos y alcance' 'Qué queremos lograr en este avance' 'Hoy entregamos la solución BI completa; Big Data y NoSQL van en la entrega final.' 'Nuestro objetivo general es tener indicadores de ventas confiables, al menos 5 veces más rápidos y con los datos protegidos. A la izquierda lo que entregamos hoy; a la derecha lo que haremos en la entrega final.'
 [void](Txt $s 40 88 880 40 'Objetivo general: indicadores de ventas que cuadren al 100 % con el origen, al menos 5 veces más rápidos que hoy y con los datos personales protegidos.' 15 $NAVY -bold)
-Card $s 40 140 430 296 'Incluido hoy (semana 6)' ("• Base de datos de 11 tablas con datos simulados`r• 3 procedimientos y 2 triggers (automatización)`r• 3 roles, auditoría y respaldos`r• ETL con 5 reglas de limpieza`r• Data Warehouse en esquema estrella`r• Dashboard en Excel con filtros OLAP`r• Prueba de viabilidad del rendimiento") $GREEN
+Card $s 40 140 430 296 'Incluido hoy (semana 6)' ("• Base de datos de 11 tablas con datos simulados`r• 3 procedimientos y 2 triggers (automatización)`r• 3 roles, auditoría y respaldos`r• ETL con 5 reglas de limpieza`r• Data Warehouse en esquema estrella`r• Dashboard con medidas, 3 KPI con meta y filtros OLAP`r• Prueba de viabilidad del rendimiento") $GREEN
 Card $s 490 140 430 296 'Entrega final (semanas 7 a 16)' ("• MongoDB: comentarios y rutas en JSON`r• PySpark: análisis con ≥ 10 000 registros`r• Integrar los resultados de Spark al dashboard`r• Experimento completo y conclusiones (capítulos IV a VIII)`r• Informe de Medición") $GOLD
 
 # ---------------- 5. ARQUITECTURA ----------------
@@ -140,16 +140,16 @@ Stat $s 490 322 205 112 '582 141' 'líneas cargadas (17 667 anuladas rechazadas)
 Stat $s 715 322 205 112 'S/ 0,00' 'diferencia entre la base original y el Data Warehouse' $GREEN
 
 # ---------------- 10. DASHBOARD ----------------
-$s = Slide 'Capítulo III · 3.4.4 Dashboard' 'Dashboard de ventas en Excel' 'Con un clic en los filtros se analiza cualquier año, región o tipo de cliente.' 'Este es el dashboard, conectado directamente al Data Warehouse. Arriba están las medidas dinámicas: ventas, unidades y precio promedio. A la izquierda, los filtros. Al centro, la tendencia mensual y las ventas por región y año. Al tocar un filtro, todo se recalcula: eso es el análisis OLAP.'
-[void](Img $s 'evidencias\E-07_dashboard_general.png' 40 86 880 338 'Figura 7 · Filtros, medidas dinámicas, tendencia y análisis OLAP por región y año')
+$s = Slide 'Capítulo III · 3.4.4 Dashboard' 'Dashboard de ventas en Excel' 'Medidas = cuánto vendimos; KPI = si cumplimos la meta (semáforo verde o rojo).' 'Este es el dashboard, conectado al Data Warehouse. Uno: los filtros. Dos: las medidas, que dicen cuánto vendimos y cambian con los filtros. Tres: los KPI, que comparan el año 2025 con su meta y se pintan de verde si se cumple o de rojo si no. Cuatro y cinco: la tendencia y el análisis por región y año.'
+[void](Img $s 'evidencias\E-07_dashboard_general.png' 40 86 880 338 'Figura 7 · Filtros (1), medidas (2), KPI vs meta con semáforo (3), tendencia (4) y OLAP región x año (5)')
 
 # ---------------- 11. QUÉ NOS DICE ----------------
-$s = Slide 'Capítulo III · 3.4.4 Interpretación' 'Qué decisiones permite tomar' 'Hay que preparar stock para fin de año y crear acciones para volver a crecer.' 'Lo más importante para la gerencia: noviembre y diciembre venden 2,5 veces más que el resto del año, así que hay que preparar stock desde octubre. Las ventas están estancadas, así que se necesitan nuevas acciones comerciales.'
-Stat $s 40 92 205 120 'S/ 180,1 M' 'ventas 2023-2025 (7,28 millones de unidades)' $BLUE
-Stat $s 260 92 205 120 '2,5 veces' 'más ventas por mes en noviembre y diciembre' $GOLD
-Stat $s 480 92 205 120 '−0,41 %' 'variación de ventas en 2025: están estancadas' $RED
-Stat $s 700 92 220 120 '50 / 30 / 20 %' 'Lima / Arequipa / Trujillo' $BLUE
-[void](Bullets $s 40 228 470 210 @('Campaña de fin de año → comprar y distribuir stock desde octubre', 'Ventas planas → la meta de crecimiento necesita nuevas promociones', 'Top 10 productos → priorizarlos en stock y promociones', 'Filtro 2024 + Trujillo → S/ 11,96 millones en un clic') 15)
+$s = Slide 'Capítulo III · 3.4.4 Interpretación' 'KPI 2025: ¿cumplimos las metas?' 'En 2025 solo se cumplió 1 de 3 KPI: hay que reforzar las ventas; el precio está bien.' 'Estos son los KPI de 2025 frente a su meta. Crecimiento: menos 0,41 por ciento, la meta era más 5: no cumple. Cumplimiento de la meta de ventas: 94,8 por ciento, no llega al 100. Precio promedio: 24,77 soles, sobre la meta de 24: cumple. En total, 1 de 3. Por eso recomendamos promociones para la campaña de fin de año, que vende 2,5 veces más.'
+Stat $s 40 92 205 120 '−0,41 %' 'KPI 1 · Crecimiento 2025 · meta ≥ +5 % · ✖ No cumple' $RED
+Stat $s 260 92 205 120 '94,8 %' 'KPI 2 · Cumplimiento de la meta de ventas · meta 100 % · ✖ No cumple' $RED
+Stat $s 480 92 205 120 'S/ 24,77' 'KPI 3 · Precio promedio · meta ≥ S/ 24,00 · ✔ Cumple' $GREEN
+Stat $s 700 92 220 120 '1 de 3' 'KPI cumplidos en 2025' $GOLD
+[void](Bullets $s 40 228 470 210 @('Medidas 2023-2025: S/ 180,1 M y 7,28 M de unidades (sin meta: solo describen)', 'Crecimiento bajo la meta → promociones y nuevos clientes', 'Campaña Nov-Dic vende 2,5 veces más → stock desde octubre', 'Filtro 2024 + Trujillo → S/ 11,96 M en un clic') 15)
 [void](Img $s 'evidencias\E-07b_dashboard_filtro_trujillo_2024.png' 530 226 390 210 '')
 
 # ---------------- 12. SEGURIDAD ----------------
@@ -181,7 +181,7 @@ Stat $s 40 92 205 112 '~10 veces' 'reportes más rápidos con el Data Warehouse'
 Stat $s 260 92 205 112 'S/ 0,00' 'diferencia: el ETL cuadra al céntimo' $GREEN
 Stat $s 480 92 205 112 '10 / 10' 'pruebas de funcionamiento y seguridad aprobadas' $GREEN
 Stat $s 700 92 220 112 '2,5 veces' 'más ventas en la campaña de fin de año' $GOLD
-[void](Bullets $s 40 222 430 214 @('Separar la base del día a día del Data Warehouse fue la decisión correcta', 'Los índices normales no resuelven los reportes', 'El dashboard muestra decisiones claras para la gerencia', 'La base es segura: transacciones, auditoría, roles y respaldos') 15)
+[void](Bullets $s 40 222 430 214 @('Separar la base del día a día del Data Warehouse fue la decisión correcta', 'Los índices normales no resuelven los reportes', 'Los KPI muestran que en 2025 solo se cumplió 1 de 3 metas', 'La base es segura: transacciones, auditoría, roles y respaldos') 15)
 Card $s 490 222 430 214 'Próximos pasos' ("• MongoDB con operaciones CRUD`r• PySpark: ranking y estacionalidad`r• Integrar Spark al dashboard`r• Experimento completo e Informe de Medición`r• Código y datos: github.com/coco6213/exp-base-de-datos-avanzado") $GOLD
 
 $out = if ($Salida) { $Salida } else { Join-Path $root 'informe\AVANCE-EXP-DEDATOSAVANZADO.pptx' }

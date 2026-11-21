@@ -1,7 +1,7 @@
-# Captura de pantalla de una ventana (por su proceso) y marcado con cuadros rojos.
+﻿# Captura de pantalla de una ventana (por su proceso) y marcado con cuadros rojos.
 #   Captura: captura.ps1 -Proceso EXCEL -Salida img.png
 #   Marcar : captura.ps1 -Marcar img.png -Cuadros "x,y,w,h;x,y,w,h" [-Etiquetas "1;2"]
-param([string]$Proceso, [string]$Salida, [string]$Marcar, [string]$Cuadros, [string]$Etiquetas, [switch]$Pantalla)
+param([string]$Proceso, [string]$Salida, [string]$Marcar, [string]$Cuadros, [string]$Etiquetas, [switch]$Pantalla, [int]$Tamano = 16)
 Add-Type -AssemblyName System.Drawing
 Add-Type @"
 using System; using System.Runtime.InteropServices;
@@ -21,7 +21,7 @@ if ($Marcar) {
   $img = [Drawing.Image]::FromFile($Marcar); $bmp = New-Object Drawing.Bitmap $img; $img.Dispose()
   $g = [Drawing.Graphics]::FromImage($bmp); $g.SmoothingMode = 'AntiAlias'
   $pen = New-Object Drawing.Pen ([Drawing.Color]::Red), 5
-  $font = New-Object Drawing.Font 'Segoe UI', 16, ([Drawing.FontStyle]::Bold)
+  $font = New-Object Drawing.Font 'Segoe UI', $Tamano, ([Drawing.FontStyle]::Bold)
   $et = if ($Etiquetas) { $Etiquetas.Split(';') } else { @() }; $i = 0
   foreach ($c in $Cuadros.Split(';')) {
     $v = $c.Split(',') | % { [int]$_ }
