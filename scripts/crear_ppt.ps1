@@ -1,5 +1,6 @@
 ﻿# Crea la presentación del avance (semana 6) en base al informe AVANCE-EXP-DEDATOSAVANZADO.
 # 15 diapositivas con estructura uniforme: sección + título + contenido + "Idea clave" + notas del orador.
+param([string]$Salida = '')
 $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot
 try { $pp = [Runtime.InteropServices.Marshal]::GetActiveObject('PowerPoint.Application') }
@@ -35,7 +36,7 @@ function Slide($section, $title, $idea, $notes) {
     $t = Txt $s 54 450 860 40 "Idea clave: $idea" 14 $NAVY
     $t.TextFrame.VerticalAnchor = 3; $t.TextFrame.TextRange.Characters(1, 11).Font.Bold = -1
   }
-  [void](Txt $s 36 508 760 20 'DataShield 360 · Distribuidora Andina · Avance semana 6 · Channel, Yin, Gutiérrez, Pirsin' 9 $GRAY)
+  [void](Txt $s 36 508 760 20 'DataShield 360 · Distribuidora Andina · Avance semana 6 · Vasquez, Oblea, Gutiérrez, Dominguez' 9 $GRAY)
   [void](Txt $s 860 508 64 20 "$script:n / 15" 9 $GRAY -align 3)
   if ($notes) { $s.NotesPage.Shapes.Placeholders.Item(2).TextFrame.TextRange.Text = $notes }
   return $s
@@ -70,11 +71,14 @@ function Card($s, $l, $t, $w, $h, $head, $body, $color) {
 $script:n++
 $s = $pres.Slides.Add(1, 12)
 [void](Box $s 0 0 960 540 $NAVY $null); [void](Box $s 60 292 120 4 $GOLD $null)
-[void](Txt $s 60 80 840 30 'BASE DE DATOS AVANZADAS Y BIG DATA · CIIN1487R · NRC 3814' 15 (C 190 210 230) -bold)
+[void](Txt $s 60 80 840 30 'BASE DE DATOS AVANZADAS Y BIG DATA · CIIN1487R' 15 (C 190 210 230) -bold)
 [void](Txt $s 60 120 840 110 'DataShield 360: ecosistema de datos seguro e inteligente para la empresa peruana' 34 $WHITE -bold)
 [void](Txt $s 60 240 840 36 'Avance semana 6 · Solución de Inteligencia de Negocios y Visualización de Datos' 19 (C 232 200 120))
-[void](Txt $s 60 315 840 110 ("Caso: Distribuidora Andina Comercial S.A.C. (Lima, Arequipa y Trujillo)`rIntegrantes: Channel · Yin · Gutiérrez · Pirsin`rDocente: Ramirez Visa Adan Elvis · Período 2026-2") 16 $WHITE)
-$s.NotesPage.Shapes.Placeholders.Item(2).TextFrame.TextRange.Text = 'Buenos días. Somos el grupo de Channel, Yin, Gutiérrez y Pirsin. Presentamos el avance de la semana 6 del proyecto DataShield 360: llegamos hasta Inteligencia de Negocios y Visualización de Datos. La parte de Big Data y MongoDB es para la entrega final.'
+[void](Txt $s 60 310 840 30 "Caso: Distribuidora Andina Comercial S.A.C. (Lima, Arequipa y Trujillo)" 15 $WHITE)
+[void](Txt $s 60 345 840 24 "INTEGRANTES" 13 (C 232 200 120) -bold)
+[void](Txt $s 60 370 840 70 ("Jean Pool Alexander Vasquez Valderrama  ·  Channel Jennifer Oblea Ukuncham`rGutiérrez  ·  David Dominguez Pirazaman") 16 $WHITE)
+[void](Txt $s 60 450 840 26 "Docente: Ramirez Visa Adan Elvis  ·  Período 2026-2" 14 (C 190 210 230))
+$s.NotesPage.Shapes.Placeholders.Item(2).TextFrame.TextRange.Text = 'Buenos días. Somos Jean Pool Vasquez, Channel Oblea, Gutiérrez y David Dominguez. Presentamos el avance de la semana 6 del proyecto DataShield 360: llegamos hasta Inteligencia de Negocios y Visualización de Datos. La parte de Big Data y MongoDB es para la entrega final.'
 
 # ---------------- 2. AGENDA ----------------
 $s = Slide 'Agenda' 'Qué vamos a presentar' 'Seguimos el mismo orden del informe: capítulos I, II y III.' 'Esta es la ruta de la exposición. Va en el mismo orden del informe: primero el problema, luego cómo diseñamos la solución y al final qué logramos y qué sigue.'
@@ -135,8 +139,8 @@ Stat $s 490 322 205 112 '582 141' 'líneas cargadas (17 667 anuladas rechazadas)
 Stat $s 715 322 205 112 'S/ 0,00' 'diferencia entre la base original y el Data Warehouse' $GREEN
 
 # ---------------- 10. DASHBOARD ----------------
-$s = Slide 'Capítulo III · 3.4.4 Dashboard' 'Dashboard de ventas en Excel' 'Con un clic en los filtros se analiza cualquier año, región o tipo de cliente.' 'Este es el dashboard, conectado directamente al Data Warehouse. Uno: filtros. Dos: los indicadores clave. Tres: la tendencia mensual. Cuatro: ventas por región y año. Al tocar un filtro, todo se recalcula: eso es el análisis OLAP.'
-[void](Img $s 'evidencias\E-07_dashboard.png' 40 86 880 338 'Figura 7 · Filtros (1), KPI (2), tendencia (3) y análisis por región y año (4)')
+$s = Slide 'Capítulo III · 3.4.4 Dashboard' 'Dashboard de ventas en Excel' 'Con un clic en los filtros se analiza cualquier año, región o tipo de cliente.' 'Este es el dashboard, conectado directamente al Data Warehouse. Arriba están las medidas dinámicas: ventas, unidades y precio promedio. A la izquierda, los filtros. Al centro, la tendencia mensual y las ventas por región y año. Al tocar un filtro, todo se recalcula: eso es el análisis OLAP.'
+[void](Img $s 'evidencias\E-07_dashboard_general.png' 40 86 880 338 'Figura 7 · Filtros, medidas dinámicas, tendencia y análisis OLAP por región y año')
 
 # ---------------- 11. QUÉ NOS DICE ----------------
 $s = Slide 'Capítulo III · 3.4.4 Interpretación' 'Qué decisiones permite tomar' 'Hay que preparar stock para fin de año y crear acciones para volver a crecer.' 'Lo más importante para la gerencia: noviembre y diciembre venden 2,5 veces más que el resto del año, así que hay que preparar stock desde octubre. Las ventas están estancadas, así que se necesitan nuevas acciones comerciales.'
@@ -144,8 +148,8 @@ Stat $s 40 92 205 120 'S/ 180,1 M' 'ventas 2023-2025 (7,28 millones de unidades)
 Stat $s 260 92 205 120 '2,5 veces' 'más ventas por mes en noviembre y diciembre' $GOLD
 Stat $s 480 92 205 120 '−0,41 %' 'variación de ventas en 2025: están estancadas' $RED
 Stat $s 700 92 220 120 '50 / 30 / 20 %' 'Lima / Arequipa / Trujillo' $BLUE
-[void](Bullets $s 40 228 470 210 @('Campaña de fin de año → comprar y distribuir stock desde octubre', 'Ventas planas → la meta de crecimiento necesita nuevas promociones', 'Top 10 productos → priorizarlos en stock y promociones', 'Filtro 2025 + Lima → S/ 29,97 millones en un clic') 15)
-[void](Img $s 'evidencias\E-07b_dashboard_filtro_lima_2025.png' 530 226 390 210 '')
+[void](Bullets $s 40 228 470 210 @('Campaña de fin de año → comprar y distribuir stock desde octubre', 'Ventas planas → la meta de crecimiento necesita nuevas promociones', 'Top 10 productos → priorizarlos en stock y promociones', 'Filtro 2024 + Trujillo → S/ 11,96 millones en un clic') 15)
+[void](Img $s 'evidencias\E-07b_dashboard_filtro_trujillo_2024.png' 530 226 390 210 '')
 
 # ---------------- 12. SEGURIDAD ----------------
 $s = Slide 'Capítulo III · 3.6 Seguridad y respaldos' 'Datos protegidos y respaldados' 'Cada persona ve solo lo que necesita y se pierden como máximo 15 minutos de datos.' 'Aplicamos mínimo privilegio: el analista no puede ver email, teléfono ni RUC, como muestra la captura en rojo. Los respaldos completo, diferencial y de log permiten perder como máximo 15 minutos de información.'
@@ -179,9 +183,9 @@ Stat $s 700 92 220 112 '2,5 veces' 'más ventas en la campaña de fin de año' $
 [void](Bullets $s 40 222 430 214 @('Separar la base del día a día del Data Warehouse fue la decisión correcta', 'Los índices normales no resuelven los reportes', 'El dashboard muestra decisiones claras para la gerencia', 'La base es segura: transacciones, auditoría, roles y respaldos') 15)
 Card $s 490 222 430 214 'Próximos pasos' ("• MongoDB con operaciones CRUD`r• PySpark: ranking y estacionalidad`r• Integrar Spark al dashboard`r• Experimento completo e Informe de Medición`r• Publicar el repositorio para el docente") $GOLD
 
-$out = Join-Path $root 'informe\AVANCE-EXP-DEDATOSAVANZADO.pptx'
+$out = if ($Salida) { $Salida } else { Join-Path $root 'informe\AVANCE-EXP-DEDATOSAVANZADO.pptx' }
 if (Test-Path $out) { Remove-Item $out -Force }
 $pres.SaveAs($out)
-$pres.SaveAs((Join-Path $root 'informe\AVANCE-EXP-DEDATOSAVANZADO_presentacion.pdf'), 32)
+
 "Diapositivas: $($pres.Slides.Count) -> $out"
 $pres.Close()
